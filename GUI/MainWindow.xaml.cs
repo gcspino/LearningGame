@@ -29,8 +29,7 @@ namespace LearningGame.GUI
             InitializeComponent();
             vm = new MainWindowViewModel();
             DataContext = vm;
-
-
+            Answer.Focus();
         }
 
         private void Answer_KeyDown(object sender, KeyEventArgs e)
