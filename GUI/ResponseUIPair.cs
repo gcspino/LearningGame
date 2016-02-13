@@ -1,5 +1,6 @@
 ﻿using System;
 using System.Collections.Generic;
+using System.IO;
 using System.Linq;
 using System.Media;
 using System.Text;
@@ -31,7 +32,10 @@ namespace LearningGame.GUI
 
         internal void PlaySound()
         {
-            Sound.Play();
+            if (Sound.SoundLocation != null && File.Exists(Sound.SoundLocation))
+            {
+                Sound.Play();
+            }
         }
 
 

@@ -34,7 +34,7 @@ namespace LearningGame.GUI
             game = new BasicGame(0, 10, new List<string>() { "+", "-" }, 15);
             CurrentProblem = game.Problems[0];
             NotifyPropertyChanged(string.Empty);
-            resources = new ResponseResources(string.Concat(AppDomain.CurrentDomain.BaseDirectory, "Images\\"), new List<string> { "correct" });
+            resources = new ResponseResources(string.Concat(AppDomain.CurrentDomain.BaseDirectory, "Images\\"), new List<string> { "correct", "wrong" });
         }
 
         public void AnswerCurrentProblem(int answer)
@@ -43,10 +43,7 @@ namespace LearningGame.GUI
             if (game.AttemptProblem(CurrentProblem, answer))
             {
                 // correct
-                ResponseUIPair responsePair = resources.GetResponse("correct");
-
-                ResponseImage = responsePair.Image;
-                responsePair.PlaySound();
+                SetFeedback("correct");
                 problemIndex++;
                 attempts = 0;
             }
@@ -56,6 +53,7 @@ namespace LearningGame.GUI
                 attempts++;
                 if (attempts > 1)
                 {
+                    SetFeedback("wrong");
                     Feedback = CurrentProblem.AnswerText();
                     problemIndex++;
                     attempts = 0;
@@ -76,6 +74,13 @@ namespace LearningGame.GUI
                 CurrentProblem = game.Problems[problemIndex];
             }
             NotifyPropertyChanged(string.Empty);
+        }
+
+        private void SetFeedback(string category)
+        {
+            ResponseUIPair responsePair = resources.GetResponse(category);
+            ResponseImage = responsePair.Image;
+            responsePair.PlaySound();
         }
 
         private string mFeedback;
