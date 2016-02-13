@@ -6,6 +6,8 @@ using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
 
+using System.Windows.Media.Imaging;
+
 namespace LearningGame.GUI
 {
     public class MainWindowViewModel : INotifyPropertyChanged
@@ -13,6 +15,10 @@ namespace LearningGame.GUI
         private BasicGame game;
         private int problemIndex = 0;
         private int attempts = 0;
+
+        private ResponseResources resources;
+
+        
 
         public Problem CurrentProblem { get; set; }
 
@@ -28,6 +34,7 @@ namespace LearningGame.GUI
             game = new BasicGame(0, 10, new List<string>() { "+", "-" }, 15);
             CurrentProblem = game.Problems[0];
             NotifyPropertyChanged(string.Empty);
+            resources = new ResponseResources(string.Concat(AppDomain.CurrentDomain.BaseDirectory, "Images\\"), new List<string> { "correct" });
         }
 
         public void AnswerCurrentProblem(int answer)
@@ -36,6 +43,10 @@ namespace LearningGame.GUI
             if (game.AttemptProblem(CurrentProblem, answer))
             {
                 // correct
+                ResponseUIPair responsePair = resources.GetResponse("correct");
+
+                ResponseImage = responsePair.Image;
+                responsePair.PlaySound();
                 problemIndex++;
                 attempts = 0;
             }
@@ -80,6 +91,21 @@ namespace LearningGame.GUI
             {
                 mFeedback = value;
                 NotifyPropertyChanged("Feedback");
+            }
+        }
+
+        private BitmapImage mResponseImage;
+        public BitmapImage ResponseImage
+        {
+            get
+            {
+                return mResponseImage;
+            }
+
+            set
+            {
+                mResponseImage = value;
+                NotifyPropertyChanged("ResponseImage");
             }
         }
 

@@ -5,13 +5,14 @@
         xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
         xmlns:local="clr-namespace:LearningGame.GUI"
         mc:Ignorable="d"
-        Title="Learning Game - Basic" Height="350" Width="900">
+        Title="Learning Game - Basic" Height="800" Width="900">
     <Grid>
         <Grid.RowDefinitions>
             <RowDefinition Height="Auto" />
             <RowDefinition Height="Auto" />
             <RowDefinition Height="5" />
             <RowDefinition Height="Auto" />
+            <RowDefinition Height="400" />
         </Grid.RowDefinitions>
         <Grid.ColumnDefinitions>
             <ColumnDefinition Width="100" />
@@ -26,5 +27,7 @@
         <TextBlock Grid.Row="1" Grid.Column="0" Name="Operator" Text="{Binding CurrentProblem.Operator}" FontSize="72"/>
         <Rectangle Grid.Row="2" Grid.Column="1" Height="45" Fill="Black" Stroke="Black" HorizontalAlignment="Stretch"/>
         <TextBox Grid.Row="3" Grid.Column="1" Name="Answer"  FontSize="72" HorizontalAlignment="Right" MinWidth="100" Keyboard.KeyDown="Answer_KeyDown"/>
-    </Grid>
+        <Image Grid.Row="4" Grid.Column="2" Name="ResponseImage" Source="{Binding ResponseImage, Mode=OneWay}" Height="400" Width="600" Stretch="UniformToFill" />
+        
+        </Grid>
 </Window>
