@@ -1,12 +1,10 @@
 ﻿using System;
 using System.Collections.Generic;
 using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
 
 namespace LearningGame.Core
 {
-    internal class ProblemGenerator
+    public class ProblemGenerator
     {
         public int LowerBound;
         public int UpperBound;
@@ -18,6 +16,11 @@ namespace LearningGame.Core
             LowerBound = lowerBound;
             UpperBound = upperBound;
             Operators = operators;
+        }
+
+        public ProblemGenerator(int lowerBound, int upperBound) : this(lowerBound, upperBound, new List<string>() { "+", "-" })
+        {
+
         }
 
         public Problem GenerateProblem()
