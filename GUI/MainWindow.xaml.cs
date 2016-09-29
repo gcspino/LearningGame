@@ -5,6 +5,7 @@ using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
 using System.Windows;
+using System.Media;
 using System.Windows.Controls;
 using System.Windows.Data;
 using System.Windows.Documents;
@@ -48,6 +49,11 @@ namespace LearningGame.GUI
                 }
                 Answer.Text = "";
             }
+        }
+
+        private void MediaElement_MediaEnded(object sender, RoutedEventArgs e)
+        {
+            BackgroudMedia.Position = TimeSpan.FromSeconds(0);
         }
     }
 }

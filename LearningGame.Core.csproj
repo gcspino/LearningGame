@@ -32,17 +32,22 @@
   <ItemGroup>
     <Reference Include="System" />
     <Reference Include="System.Core" />
+    <Reference Include="System.Windows" />
     <Reference Include="System.Xml.Linq" />
     <Reference Include="System.Data.DataSetExtensions" />
     <Reference Include="Microsoft.CSharp" />
     <Reference Include="System.Data" />
     <Reference Include="System.Net.Http" />
     <Reference Include="System.Xml" />
+    <Reference Include="WindowsBase" />
   </ItemGroup>
   <ItemGroup>
     <Compile Include="AdditionProblem.cs" />
     <Compile Include="BasicGame.cs" />
+    <Compile Include="BattleGame.cs" />
+    <Compile Include="Combatant.cs" />
     <Compile Include="Game.cs" />
+    <Compile Include="MultiplicationProblem.cs" />
     <Compile Include="Problem.cs" />
     <Compile Include="ProblemGenerator.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />

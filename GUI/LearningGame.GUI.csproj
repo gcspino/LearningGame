@@ -55,8 +55,24 @@
       <Generator>MSBuild:Compile</Generator>
       <SubType>Designer</SubType>
     </ApplicationDefinition>
+    <Compile Include="BattleTriangleFact.xaml.cs">
+      <DependentUpon>BattleTriangleFact.xaml</DependentUpon>
+    </Compile>
+    <Compile Include="BattleTriangleFactViewModel.cs" />
+    <Compile Include="CombatantView.xaml.cs">
+      <DependentUpon>CombatantView.xaml</DependentUpon>
+    </Compile>
+    <Compile Include="CombatantViewModel.cs" />
     <Compile Include="RerponseResources.cs" />
     <Compile Include="ResponseUIPair.cs" />
+    <Page Include="BattleTriangleFact.xaml">
+      <SubType>Designer</SubType>
+      <Generator>MSBuild:Compile</Generator>
+    </Page>
+    <Page Include="CombatantView.xaml">
+      <SubType>Designer</SubType>
+      <Generator>MSBuild:Compile</Generator>
+    </Page>
     <Page Include="MainWindow.xaml">
       <Generator>MSBuild:Compile</Generator>
       <SubType>Designer</SubType>
@@ -89,6 +105,7 @@
       <Generator>ResXFileCodeGenerator</Generator>
       <LastGenOutput>Resources.Designer.cs</LastGenOutput>
     </EmbeddedResource>
+    <None Include="BGM\Battle3.ogg" />
     <None Include="Properties\Settings.settings">
       <Generator>SettingsSingleFileGenerator</Generator>
       <LastGenOutput>Settings.Designer.cs</LastGenOutput>
@@ -106,6 +123,12 @@
   </ItemGroup>
   <ItemGroup />
   <ItemGroup>
+    <Content Include="Images\Battle_01.JPG">
+      <CopyToOutputDirectory>Always</CopyToOutputDirectory>
+    </Content>
+    <Content Include="Images\Battle_01.wav">
+      <CopyToOutputDirectory>Always</CopyToOutputDirectory>
+    </Content>
     <Content Include="Images\Correct_01.JPG">
       <CopyToOutputDirectory>Always</CopyToOutputDirectory>
     </Content>
@@ -124,6 +147,8 @@
     <Content Include="Images\Correct_02.wma">
       <CopyToOutputDirectory>Always</CopyToOutputDirectory>
     </Content>
+    <Resource Include="Images\Mia.png" />
+    <Resource Include="Images\Witch.png" />
     <Content Include="Images\Wrong_01.jpg">
       <CopyToOutputDirectory>Always</CopyToOutputDirectory>
     </Content>

@@ -28,6 +28,7 @@
         <Rectangle Grid.Row="2" Grid.Column="1" Height="45" Fill="Black" Stroke="Black" HorizontalAlignment="Stretch"/>
         <TextBox Grid.Row="3" Grid.Column="1" Name="Answer"  FontSize="72" HorizontalAlignment="Right" MinWidth="100" Keyboard.KeyDown="Answer_KeyDown"/>
         <Image Grid.Row="4" Grid.Column="2" Name="ResponseImage" Source="{Binding ResponseImage, Mode=OneWay}" Height="400" Width="600" Stretch="Uniform" />
-        
-        </Grid>
+        <MediaElement Name="BackgroudMedia" Source="Images\Battle_01.wav" MediaEnded="MediaElement_MediaEnded" />
+
+    </Grid>
 </Window>

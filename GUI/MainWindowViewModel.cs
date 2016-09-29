@@ -17,7 +17,7 @@ namespace LearningGame.GUI
         private int attempts = 0;
 
         private ResponseResources resources;
-
+        private ResponseUIPair BackgroundResource;
         
 
         public Problem CurrentProblem { get; set; }
@@ -34,7 +34,8 @@ namespace LearningGame.GUI
             game = new BasicGame(0, 10, new List<string>() { "+", "-" }, 15);
             CurrentProblem = game.Problems[0];
             NotifyPropertyChanged(string.Empty);
-            resources = new ResponseResources(string.Concat(AppDomain.CurrentDomain.BaseDirectory, "Images\\"), new List<string> { "correct", "wrong" });
+            resources = new ResponseResources(string.Concat(AppDomain.CurrentDomain.BaseDirectory, "Images\\"), new List<string> { "correct", "wrong", "battle" });
+            BackgroundResource = resources.GetResponse("battle");
         }
 
         public void AnswerCurrentProblem(int answer)
