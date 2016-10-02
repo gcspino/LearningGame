@@ -65,6 +65,7 @@
       <DependentUpon>CombatantView.xaml</DependentUpon>
     </Compile>
     <Compile Include="CombatantViewModel.cs" />
+    <Compile Include="ImageResources.cs" />
     <Compile Include="RerponseResources.cs" />
     <Compile Include="ResponseUIPair.cs" />
     <Compile Include="TriangleFactView.xaml.cs">
@@ -157,8 +158,6 @@
     <Content Include="Images\Correct_02.wma">
       <CopyToOutputDirectory>Always</CopyToOutputDirectory>
     </Content>
-    <Resource Include="Images\Mia.png" />
-    <Resource Include="Images\Witch.png" />
     <Content Include="Images\Wrong_01.jpg">
       <CopyToOutputDirectory>Always</CopyToOutputDirectory>
     </Content>
@@ -166,6 +165,12 @@
       <CopyToOutputDirectory>Always</CopyToOutputDirectory>
     </Content>
     <Content Include="Images\Wrong_01.wma">
+      <CopyToOutputDirectory>Always</CopyToOutputDirectory>
+    </Content>
+    <Content Include="Portraits\Witch.png">
+      <CopyToOutputDirectory>Always</CopyToOutputDirectory>
+    </Content>
+    <Content Include="Portraits\Mia.png">
       <CopyToOutputDirectory>Always</CopyToOutputDirectory>
     </Content>
   </ItemGroup>

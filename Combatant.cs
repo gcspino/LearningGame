@@ -10,14 +10,17 @@ namespace LearningGame.Core
     {
         Random rnd = new Random();
 
-        public Combatant(string name, int maxHP, int physicalAttack, int physicalDefense)
+        public Combatant(string name, int maxHP, int physicalAttack, int physicalDefense, string portraitName)
         {
             Name = name;
             MaxHP = maxHP;
             CurrentHP = MaxHP;
             PhysicalAttack = physicalAttack;
             PhysicalDefense = physicalDefense;
+            PortraitName = portraitName;
         }
+
+        public string PortraitName { get; set;}
 
         public string Name { get; set; }
         public int MaxHP { get; set; }

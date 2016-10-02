@@ -15,6 +15,7 @@ namespace LearningGame.GUI
         private BattleGame game;
 
         private ResponseResources resources;
+        private ImageResources portraits;
         private ResponseUIPair BackgroundResource;
 
         public Problem CurrentProblem { get; set; }
@@ -32,12 +33,13 @@ namespace LearningGame.GUI
 
         public BattleTriangleFactViewModel()
         {
-            Combatant playerCombatant = new Combatant("Mia", 80, 10, 5);
+            portraits = new ImageResources(string.Concat(AppDomain.CurrentDomain.BaseDirectory, "Portraits\\"));
+            Combatant playerCombatant = new Combatant("Mia", 80, 10, 5, "Mia.png");
 
-            LeftCombatantViewModel = new CombatantViewModel(playerCombatant);
+            LeftCombatantViewModel = new CombatantViewModel(playerCombatant, portraits);
 
-            Combatant EnemyCombatant = new Combatant("Goblin", 50, 7, 3);
-            RightCombatantViewModel = new CombatantViewModel(EnemyCombatant);
+            Combatant EnemyCombatant = new Combatant("Goblin", 50, 7, 3, "Witch.png");
+            RightCombatantViewModel = new CombatantViewModel(EnemyCombatant, portraits);
 
             game = new BattleGame(playerCombatant, EnemyCombatant, 1, 10, new List<string>() {  "*", "/" });
             CurrentProblem = game.GetProblem();
@@ -46,6 +48,7 @@ namespace LearningGame.GUI
 
             NotifyPropertyChanged(string.Empty);
             resources = new ResponseResources(string.Concat(AppDomain.CurrentDomain.BaseDirectory, "Images\\"), new List<string> { "correct", "wrong", "battle" });
+
             BackgroundResource = resources.GetResponse("battle");
         }
 
