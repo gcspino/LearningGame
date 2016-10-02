@@ -23,22 +23,7 @@
         </Grid.ColumnDefinitions>
         <controls:CombatantView x:Name="LeftCombatant" Grid.Row="1" Grid.Column="1" DataContext="{Binding LeftCombatantViewModel}"/>
         <controls:CombatantView x:Name="RightCombatant" Grid.Row="1" Grid.Column="3" DataContext="{Binding RightCombatantViewModel}"/>
-        <Grid Grid.Row="1" Grid.Column="2">
-            <Grid.RowDefinitions>
-                <RowDefinition Height="Auto"/>
-                <RowDefinition Height="Auto"/>
-                <RowDefinition Height="Auto"/>
-            </Grid.RowDefinitions>
-            <Grid.ColumnDefinitions>
-                <ColumnDefinition Width="200" />
-                <ColumnDefinition Width="*" />
-                <ColumnDefinition Width="200" />
-            </Grid.ColumnDefinitions>
-            <TextBlock Grid.Row="0" Grid.Column="1" Text="{Binding ProblemTop, FallbackValue=10}" HorizontalAlignment="Center"  FontSize="72"/>
-            <TextBlock Grid.Row="1" Grid.Column="1" Text="* /" HorizontalAlignment="Center"  FontSize="72"/>
-            <TextBlock Grid.Row="2" Grid.Column="0" Text="{Binding ProblemTop, FallbackValue=10}" HorizontalAlignment="Center"  FontSize="72"/>
-            <TextBlock Grid.Row="2" Grid.Column="2" Text="{Binding ProblemTop, FallbackValue=10}" HorizontalAlignment="Center"  FontSize="72"/>
-        </Grid>
+        <controls:TriangleFactView x:Name="Question" Grid.Row="1" Grid.Column="2" DataContext="{Binding QuestionViewModel}"/>
         <TextBox Grid.Row="3" Grid.Column="2" Name="Answer"  FontSize="72" HorizontalAlignment="Center" MinWidth="100" Keyboard.KeyDown="Answer_KeyDown"/>
         <MediaElement Name="BackgroudMedia" Source="Images\Battle_01.wav" MediaEnded="MediaElement_MediaEnded" />
 

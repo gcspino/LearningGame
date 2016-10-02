@@ -14,6 +14,7 @@ namespace LearningGame.Core
         {
             Name = name;
             MaxHP = maxHP;
+            CurrentHP = MaxHP;
             PhysicalAttack = physicalAttack;
             PhysicalDefense = physicalDefense;
         }
@@ -26,7 +27,11 @@ namespace LearningGame.Core
             get { return mCurrentHP; }
             set
             {
-                mCurrentHP -= Math.Min(value, mCurrentHP);
+                mCurrentHP = value;
+                if(mCurrentHP < 0)
+                {
+                    mCurrentHP = 0;
+                }
             }
         }
 

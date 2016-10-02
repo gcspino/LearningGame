@@ -32,5 +32,9 @@ namespace LearningGame.GUI
             }
         }
 
+        public void Refresh()
+        {
+            NotifyPropertyChanged(string.Empty);
+        }
     }
 }

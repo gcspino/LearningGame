@@ -46,6 +46,7 @@
     <Compile Include="BasicGame.cs" />
     <Compile Include="BattleGame.cs" />
     <Compile Include="Combatant.cs" />
+    <Compile Include="DivisionProblem.cs" />
     <Compile Include="Game.cs" />
     <Compile Include="MultiplicationProblem.cs" />
     <Compile Include="Problem.cs" />

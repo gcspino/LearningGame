@@ -37,6 +37,8 @@
   <ItemGroup>
     <Reference Include="System" />
     <Reference Include="System.Data" />
+    <Reference Include="System.Drawing" />
+    <Reference Include="System.Windows.Forms" />
     <Reference Include="System.Xml" />
     <Reference Include="Microsoft.CSharp" />
     <Reference Include="System.Core" />
@@ -65,6 +67,10 @@
     <Compile Include="CombatantViewModel.cs" />
     <Compile Include="RerponseResources.cs" />
     <Compile Include="ResponseUIPair.cs" />
+    <Compile Include="TriangleFactView.xaml.cs">
+      <DependentUpon>TriangleFactView.xaml</DependentUpon>
+    </Compile>
+    <Compile Include="TriangleFactViewModel.cs" />
     <Page Include="BattleTriangleFact.xaml">
       <SubType>Designer</SubType>
       <Generator>MSBuild:Compile</Generator>
@@ -85,6 +91,10 @@
       <DependentUpon>MainWindow.xaml</DependentUpon>
       <SubType>Code</SubType>
     </Compile>
+    <Page Include="TriangleFactView.xaml">
+      <SubType>Designer</SubType>
+      <Generator>MSBuild:Compile</Generator>
+    </Page>
   </ItemGroup>
   <ItemGroup>
     <Compile Include="MainWindowViewModel.cs" />

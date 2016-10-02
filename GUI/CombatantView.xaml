@@ -19,6 +19,6 @@
         </Grid.ColumnDefinitions>
         <TextBlock Grid.Column ="0" Grid.ColumnSpan="3" Text="{Binding CombatantData.Name, FallbackValue=NAME HERE}" HorizontalAlignment="Center" FontSize="24" />
         <Image Grid.Row="1" Grid.Column="1" Name="LeftCombatant" Source="{Binding Combatant.Image, Mode=OneWay}"  Height="200" Width="200" Stretch="Uniform"/>
-        <ProgressBar Grid.Row="2" Grid.Column="1" Name="LeftCombatantHealth" Height="30" Maximum="100"/>
+        <ProgressBar Grid.Row="2" Grid.Column="1" Name="LeftCombatantHealth" Height="30" Value="{Binding CombatantData.CurrentHP, FallbackValue=50}" Maximum="{Binding CombatantData.MaxHP, FallbackValue=100}"/>
     </Grid>
 </UserControl>

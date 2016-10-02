@@ -21,6 +21,7 @@ namespace LearningGame.GUI
 
         public CombatantViewModel LeftCombatantViewModel { get; set; }
         public CombatantViewModel RightCombatantViewModel { get; set; }
+        public TriangleFactViewModel QuestionViewModel { get; set; }
 
         public event PropertyChangedEventHandler PropertyChanged;
 
@@ -38,8 +39,11 @@ namespace LearningGame.GUI
             Combatant EnemyCombatant = new Combatant("Goblin", 50, 7, 3);
             RightCombatantViewModel = new CombatantViewModel(EnemyCombatant);
 
-            game = new BattleGame(playerCombatant, EnemyCombatant, 0, 10, new List<string>() { "+", "-" });
-            CurrentProblem = game.Problems[0];
+            game = new BattleGame(playerCombatant, EnemyCombatant, 1, 10, new List<string>() {  "*", "/" });
+            CurrentProblem = game.GetProblem();
+
+            QuestionViewModel = new TriangleFactViewModel(CurrentProblem);
+
             NotifyPropertyChanged(string.Empty);
             resources = new ResponseResources(string.Concat(AppDomain.CurrentDomain.BaseDirectory, "Images\\"), new List<string> { "correct", "wrong", "battle" });
             BackgroundResource = resources.GetResponse("battle");
@@ -49,16 +53,19 @@ namespace LearningGame.GUI
         {
             if (game.AttemptProblem(CurrentProblem, answer))
             {
-                // correct
-
+                LeftCombatantViewModel.CombatantData.Attack(RightCombatantViewModel.CombatantData);
+                RightCombatantViewModel.Refresh();
             }
             else
             {
                 // incorrect
+                RightCombatantViewModel.CombatantData.Attack(LeftCombatantViewModel.CombatantData);
+                LeftCombatantViewModel.Refresh();
             }
 
 
             CurrentProblem = game.GetProblem();
+            QuestionViewModel = new TriangleFactViewModel(CurrentProblem);
 
             NotifyPropertyChanged(string.Empty);
         }
