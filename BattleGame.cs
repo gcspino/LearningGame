@@ -15,11 +15,43 @@ namespace LearningGame.Core
 
         DispatcherTimer dispatcherTimer = new System.Windows.Threading.DispatcherTimer();
 
+        protected virtual void OnVictory(EventArgs e)
+        {
+            EventHandler handler = Victory;
+            if (handler != null)
+            {
+                handler(this, e);
+            }
+        }
+        public event EventHandler Victory;
 
+        protected virtual void OnDefeat(EventArgs e)
+        {
+            EventHandler handler = Defeat;
+            if (handler != null)
+            {
+                handler(this, e);
+            }
+        }
+        public event EventHandler Defeat;
+
+        protected virtual void OnEnemyPoll(EventArgs e)
+        {
+            EventHandler handler = EnemyPoll;
+            if (handler != null)
+            {
+                handler(this, e);
+            }
+        }
+        public event EventHandler EnemyPoll;
 
         private void dispatcherTimer_Tick(object sender, EventArgs e)
         {
-            // code goes here
+            if(ActiveGame)
+            {
+                Opponent.Attack(Player);
+                OnEnemyPoll(e);
+            }
         }
 
         public BattleGame(Combatant player, Combatant opponent, int lowerBound, int upperBound, List<string> operators)
@@ -29,7 +61,9 @@ namespace LearningGame.Core
             Problems = new List<Problem>();
 
             Player = player;
+            Player.Defeat += PlayerDefeat;
             Opponent = opponent;
+            Opponent.Defeat += PlayerVictory;
 
             Problem problem = Generator.GenerateProblem();
             Problems.Add(problem);
@@ -45,6 +79,19 @@ namespace LearningGame.Core
         {
             return Generator.GenerateProblem();
         }
+
+        public void PlayerDefeat(object sender, EventArgs e)
+        {
+            ActiveGame = false;
+            OnDefeat(e);
+        }
+
+        public void PlayerVictory(object sender, EventArgs e)
+        {
+            ActiveGame = false;
+            OnVictory(e);
+        }
+
 
     }
 }

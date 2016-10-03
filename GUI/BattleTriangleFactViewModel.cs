@@ -42,6 +42,9 @@ namespace LearningGame.GUI
             RightCombatantViewModel = new CombatantViewModel(EnemyCombatant, portraits);
 
             game = new BattleGame(playerCombatant, EnemyCombatant, 1, 10, new List<string>() {  "*", "/" });
+            game.EnemyPoll += EnemyAct;
+
+
             CurrentProblem = game.GetProblem();
 
             QuestionViewModel = new TriangleFactViewModel(CurrentProblem);
@@ -50,6 +53,7 @@ namespace LearningGame.GUI
             resources = new ResponseResources(string.Concat(AppDomain.CurrentDomain.BaseDirectory, "Images\\"), new List<string> { "correct", "wrong", "battle" });
 
             BackgroundResource = resources.GetResponse("battle");
+            game.ActiveGame = true;
         }
 
         public void AnswerCurrentProblem(int answer)
@@ -71,6 +75,22 @@ namespace LearningGame.GUI
             QuestionViewModel = new TriangleFactViewModel(CurrentProblem);
 
             NotifyPropertyChanged(string.Empty);
+        }
+
+        public void EnemyAct(object sender, EventArgs e)
+        {
+            RightCombatantViewModel.Refresh();
+            LeftCombatantViewModel.Refresh();
+        }
+
+        public void Victory(object sender, EventArgs e)
+        {
+            
+        }
+
+        public void Defeat(object sender, EventArgs e)
+        {
+
         }
 
     }

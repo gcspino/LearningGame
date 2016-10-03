@@ -34,6 +34,7 @@ namespace LearningGame.Core
                 if(mCurrentHP < 0)
                 {
                     mCurrentHP = 0;
+                    OnDefeat(EventArgs.Empty);
                 }
             }
         }
@@ -47,6 +48,16 @@ namespace LearningGame.Core
             int damage = attackRoll - target.PhysicalDefense;
             target.CurrentHP -= damage;
         }
+
+        protected virtual void OnDefeat(EventArgs e)
+        {
+            EventHandler handler = Defeat;
+            if (handler != null)
+            {
+                handler(this, e);
+            }
+        }
+        public event EventHandler Defeat;
 
     }
 }
