@@ -33,10 +33,17 @@ namespace LearningGame.GUI
                 mProblem = value;
                 switch(ProblemData.Operator)
                 {
+                    case "|":
+                        mProblemTop = "?";
+                        mProblemLeft = "1-Y";
+                        mProblemRight = "0-N";
+                        mMiddleValue = "Right?";
+                        break;
                     case "*":
                         mProblemTop = "?";
                         mProblemLeft = ProblemData.A.ToString();
                         mProblemRight = ProblemData.B.ToString();
+                        mMiddleValue = "* /";
                         break;
                     case "/":
                         mProblemTop = ProblemData.A.ToString();
@@ -51,6 +58,7 @@ namespace LearningGame.GUI
                             mProblemLeft = ProblemData.B.ToString(); 
                             mProblemRight = "?";
                         }
+                        mMiddleValue = "* /";
                         break;
                 }
                 NotifyPropertyChanged(string.Empty);
@@ -81,6 +89,15 @@ namespace LearningGame.GUI
             get
             {
                 return mProblemRight;
+            }
+        }
+
+        private string mMiddleValue;
+        public string MiddleValue
+        {
+            get
+            {
+                return mMiddleValue;
             }
         }
     }

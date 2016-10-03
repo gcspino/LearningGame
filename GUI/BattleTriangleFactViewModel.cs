@@ -41,7 +41,7 @@ namespace LearningGame.GUI
             Combatant EnemyCombatant = new Combatant("Goblin", 50, 7, 3, "Witch.png");
             RightCombatantViewModel = new CombatantViewModel(EnemyCombatant, portraits);
 
-            game = new BattleGame(playerCombatant, EnemyCombatant, 1, 10, new List<string>() {  "*", "/" });
+            game = new BattleGame(playerCombatant, EnemyCombatant, 1, 10, new List<string>() {  "|" });
             game.EnemyPoll += EnemyAct;
 
 

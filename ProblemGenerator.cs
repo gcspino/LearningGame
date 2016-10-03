@@ -35,6 +35,9 @@ namespace LearningGame.Core
 
             switch (operatorType)
             {
+                case "|":
+                    returnProb = new CorrectIncorrectProblem(1, 1);
+                    break;
                 case "+":
                     returnProb = new AdditionProblem(a, b);
                     break;
