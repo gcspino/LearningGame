@@ -57,7 +57,7 @@ namespace LearningGame.Core
         public BattleGame(Combatant player, Combatant opponent, int lowerBound, int upperBound, List<string> operators)
             : base(lowerBound, upperBound, operators, 1)
         {
-            Generator = new ProblemGenerator(lowerBound, upperBound, operators, new List<int>() { 2, 5, 10 });
+            Generator = new ProblemGenerator(lowerBound, upperBound, operators, new List<int>() { 2, 3, 5 });
             Problems = new List<Problem>();
 
             Player = player;
@@ -69,7 +69,7 @@ namespace LearningGame.Core
             Problems.Add(problem);
 
             dispatcherTimer.Tick += dispatcherTimer_Tick;
-            dispatcherTimer.Interval = new TimeSpan(0, 0, 5);
+            dispatcherTimer.Interval = new TimeSpan(0, 0, 6);
             dispatcherTimer.Start();
 
             ActiveGame = false;

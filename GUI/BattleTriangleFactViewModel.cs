@@ -38,10 +38,10 @@ namespace LearningGame.GUI
 
             LeftCombatantViewModel = new CombatantViewModel(playerCombatant, portraits);
 
-            Combatant EnemyCombatant = new Combatant("Goblin", 50, 7, 3, "Witch.png");
+            Combatant EnemyCombatant = new Combatant("Witch", 80, 7, 3, "Witch.png");
             RightCombatantViewModel = new CombatantViewModel(EnemyCombatant, portraits);
 
-            game = new BattleGame(playerCombatant, EnemyCombatant, 1, 10, new List<string>() {  "|" });
+            game = new BattleGame(playerCombatant, EnemyCombatant, 1, 10, new List<string>() {  "*" });
             game.EnemyPoll += EnemyAct;
 
 
@@ -50,7 +50,7 @@ namespace LearningGame.GUI
             QuestionViewModel = new TriangleFactViewModel(CurrentProblem);
 
             NotifyPropertyChanged(string.Empty);
-            resources = new ResponseResources(string.Concat(AppDomain.CurrentDomain.BaseDirectory, "Images\\"), new List<string> { "correct", "wrong", "battle" });
+            resources = new ResponseResources(string.Concat(AppDomain.CurrentDomain.BaseDirectory, "Images\\"), new List<string> { "correct", "wrong", "battle", "bang", "hit" });
 
             BackgroundResource = resources.GetResponse("battle");
             game.ActiveGame = true;
@@ -62,12 +62,14 @@ namespace LearningGame.GUI
             {
                 LeftCombatantViewModel.CombatantData.Attack(RightCombatantViewModel.CombatantData);
                 RightCombatantViewModel.Refresh();
+                resources.GetResponse("hit").PlaySound();
             }
             else
             {
                 // incorrect
                 RightCombatantViewModel.CombatantData.Attack(LeftCombatantViewModel.CombatantData);
                 LeftCombatantViewModel.Refresh();
+                resources.GetResponse("bang").PlaySound();
             }
 
 

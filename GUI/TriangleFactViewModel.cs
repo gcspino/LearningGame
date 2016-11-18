@@ -43,7 +43,7 @@ namespace LearningGame.GUI
                         mProblemTop = "?";
                         mProblemLeft = ProblemData.A.ToString();
                         mProblemRight = ProblemData.B.ToString();
-                        mMiddleValue = "* /";
+                        mMiddleValue = "x";
                         break;
                     case "/":
                         mProblemTop = ProblemData.A.ToString();

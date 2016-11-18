@@ -25,7 +25,7 @@
         <controls:CombatantView x:Name="RightCombatant" Grid.Row="1" Grid.Column="3" DataContext="{Binding RightCombatantViewModel}"/>
         <controls:TriangleFactView x:Name="Question" Grid.Row="1" Grid.Column="2" DataContext="{Binding QuestionViewModel}"/>
         <TextBox Grid.Row="3" Grid.Column="2" Name="Answer"  FontSize="72" HorizontalAlignment="Center" MinWidth="100" Keyboard.KeyDown="Answer_KeyDown"/>
-        <MediaElement Name="BackgroudMedia" Source="Images\Battle_01.wav" MediaEnded="MediaElement_MediaEnded" />
+        <MediaElement Name="BackgroudMedia" Source="Images\Battle_01.wav" MediaEnded="MediaElement_MediaEnded" Volume=".25" />
 
     </Grid>
 </Window>
