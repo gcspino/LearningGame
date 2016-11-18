@@ -34,14 +34,14 @@ namespace LearningGame.GUI
         public BattleTriangleFactViewModel()
         {
             portraits = new ImageResources(string.Concat(AppDomain.CurrentDomain.BaseDirectory, "Portraits\\"));
-            Combatant playerCombatant = new Combatant("Mia", 80, 10, 5, "Mia.png");
+            Combatant playerCombatant = new Combatant("Mia", 80, 100, 10, 5, "Mia.png");
 
             LeftCombatantViewModel = new CombatantViewModel(playerCombatant, portraits);
 
-            Combatant EnemyCombatant = new Combatant("Witch", 80, 7, 3, "Witch.png");
+            Combatant EnemyCombatant = new Combatant("Witch", 80, 0, 7, 3, "Witch.png");
             RightCombatantViewModel = new CombatantViewModel(EnemyCombatant, portraits);
 
-            game = new BattleGame(playerCombatant, EnemyCombatant, 1, 10, new List<string>() {  "*" });
+            game = new BattleGame(playerCombatant, EnemyCombatant, 1, 10, new List<string>() { "*" });
             game.EnemyPoll += EnemyAct;
 
 
@@ -87,7 +87,7 @@ namespace LearningGame.GUI
 
         public void Victory(object sender, EventArgs e)
         {
-            
+
         }
 
         public void Defeat(object sender, EventArgs e)
