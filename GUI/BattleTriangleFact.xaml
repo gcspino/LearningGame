@@ -6,7 +6,7 @@
         xmlns:controls="clr-namespace:LearningGame.GUI"
         xmlns:local="clr-namespace:LearningGame.GUI"
         mc:Ignorable="d"
-        Title="Learning Game - Battle: Triangle Facts" Height="800" Width="1500">
+        Title="Learning Game - Battle" Height="800" Width="1300">
     <Grid>
         <Grid.RowDefinitions>
             <RowDefinition Height="Auto" />
@@ -17,7 +17,7 @@
         <Grid.ColumnDefinitions>
             <ColumnDefinition Width="100" />
             <ColumnDefinition Width="300" />
-            <ColumnDefinition Width="600" />
+            <ColumnDefinition Width="470" />
             <ColumnDefinition Width="300" />
             <ColumnDefinition Width="100" />
         </Grid.ColumnDefinitions>

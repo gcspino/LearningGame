@@ -38,7 +38,7 @@ namespace LearningGame.GUI
 
             LeftCombatantViewModel = new CombatantViewModel(playerCombatant, portraits);
 
-            Combatant EnemyCombatant = new Combatant("Witch", 80, 0, 7, 3, "Witch.png");
+            Combatant EnemyCombatant = new Combatant("ThreeMan", 80, 0, 7, 3, "ThreeMan.png");
             RightCombatantViewModel = new CombatantViewModel(EnemyCombatant, portraits);
 
             game = new BattleGame(playerCombatant, EnemyCombatant, 1, 10, new List<string>() { "*" });
