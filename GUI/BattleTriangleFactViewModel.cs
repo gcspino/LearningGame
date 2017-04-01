@@ -49,7 +49,12 @@ namespace LearningGame.GUI
 
         public void SetupBattlers()
         {
-            double difficultyFactor = (Challenge - 5) * .1 + 1;
+            if (game != null)
+            {
+                game.ActiveGame = false;
+                game = null;
+            }
+                double difficultyFactor = (Challenge - 5) * .1 + 1;
             portraits = new ImageResources(string.Concat(AppDomain.CurrentDomain.BaseDirectory, "Portraits\\"));
             Combatant playerCombatant = new Combatant("Mia", 80, 100, 10, 5, "Mia.png");
 
@@ -155,6 +160,7 @@ namespace LearningGame.GUI
         public void Victory(object sender, EventArgs e)
         {
             GameStatusText = "Winner!!!";
+            game.ActiveGame = false;
             MusicVolume = 0;
             NotifyPropertyChanged(string.Empty);
         }
@@ -162,6 +168,7 @@ namespace LearningGame.GUI
         public void Defeat(object sender, EventArgs e)
         {
             GameStatusText = "Try again next time.";
+            game.ActiveGame = false;
             MusicVolume = 0;
             NotifyPropertyChanged(string.Empty);
         }
