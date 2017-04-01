@@ -179,6 +179,12 @@
     <Content Include="Images\Wrong_01.wma">
       <CopyToOutputDirectory>Always</CopyToOutputDirectory>
     </Content>
+    <Content Include="Portraits\DefaultGuy.png">
+      <CopyToOutputDirectory>Always</CopyToOutputDirectory>
+    </Content>
+    <Content Include="Portraits\FourMan.png">
+      <CopyToOutputDirectory>Always</CopyToOutputDirectory>
+    </Content>
     <Content Include="Portraits\ThreeMan.png">
       <CopyToOutputDirectory>Always</CopyToOutputDirectory>
     </Content>

@@ -55,7 +55,7 @@ namespace LearningGame.GUI
 
             LeftCombatantViewModel = new CombatantViewModel(playerCombatant, portraits);
 
-            Combatant EnemyCombatant = new Combatant("ThreeMan", 80, 0, (int) (7 * difficultyFactor), 3, "ThreeMan.png");
+            Combatant EnemyCombatant = GetCombatant(MultFactor, difficultyFactor);
             RightCombatantViewModel = new CombatantViewModel(EnemyCombatant, portraits);
 
             game = new BattleGame(playerCombatant, EnemyCombatant, 1, 10, 11 - Challenge, new List<int>() { MultFactor }, new List<string>() { "*" });
@@ -72,6 +72,26 @@ namespace LearningGame.GUI
 
             SetGameActive(true);
             
+        }
+
+        private  Combatant GetCombatant(int MultFactor, double difficultyFactor)
+        {
+            Combatant comb;
+
+            switch (MultFactor)
+            {
+                case 3:
+                    comb = new Combatant("Three-Man", 80, 0, (int)(7 * difficultyFactor), 3, "ThreeMan.png");
+                    break;
+                case 4:
+                    comb = new Combatant("Four-Man", 80, 0, (int)(7 * difficultyFactor), 3, "FourMan.png");
+                    break;
+                default:
+                    comb = new Combatant(string.Concat(MultFactor,"-Guy"), 80, 0, (int)(7 * difficultyFactor), 3, "DefaultGuy.png");
+                    break;
+            }
+
+            return comb;
         }
 
         public void  SetGameActive(bool gameIsActive)
