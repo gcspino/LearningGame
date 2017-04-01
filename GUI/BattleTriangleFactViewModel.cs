@@ -19,6 +19,22 @@ namespace LearningGame.GUI
         private ResponseUIPair BackgroundResource;
 
         public Problem CurrentProblem { get; set; }
+        public double MusicVolume { get; set; }
+        public string GameStatusText { get; set; }
+
+        private int mMultFactor;
+        public int MultFactor
+        {
+            get
+            {
+                return mMultFactor;
+            }
+            set
+            {
+                mMultFactor = value;
+                NotifyPropertyChanged("MultFactor");
+            }
+        }
 
         public CombatantViewModel LeftCombatantViewModel { get; set; }
         public CombatantViewModel RightCombatantViewModel { get; set; }
@@ -31,29 +47,55 @@ namespace LearningGame.GUI
             if (null != PropertyChanged) PropertyChanged(this, new PropertyChangedEventArgs(p));
         }
 
-        public BattleTriangleFactViewModel()
+        public void SetupBattlers()
         {
+            double difficultyFactor = (Challenge - 5) * .1 + 1;
             portraits = new ImageResources(string.Concat(AppDomain.CurrentDomain.BaseDirectory, "Portraits\\"));
             Combatant playerCombatant = new Combatant("Mia", 80, 100, 10, 5, "Mia.png");
 
             LeftCombatantViewModel = new CombatantViewModel(playerCombatant, portraits);
 
-            Combatant EnemyCombatant = new Combatant("ThreeMan", 80, 0, 7, 3, "ThreeMan.png");
+            Combatant EnemyCombatant = new Combatant("ThreeMan", 80, 0, (int) (7 * difficultyFactor), 3, "ThreeMan.png");
             RightCombatantViewModel = new CombatantViewModel(EnemyCombatant, portraits);
 
-            game = new BattleGame(playerCombatant, EnemyCombatant, 1, 10, new List<string>() { "*" });
+            game = new BattleGame(playerCombatant, EnemyCombatant, 1, 10, 11 - Challenge, new List<int>() { MultFactor }, new List<string>() { "*" });
             game.EnemyPoll += EnemyAct;
+            game.EnemyTimerAttack += EnemyTimerAttack;
+            game.Victory += Victory;
+            game.Defeat += Defeat;
 
-
+            RightCombatantViewModel.Refresh();
+            LeftCombatantViewModel.Refresh();
             CurrentProblem = game.GetProblem();
 
             QuestionViewModel = new TriangleFactViewModel(CurrentProblem);
 
+            SetGameActive(true);
+            
+        }
+
+        public void  SetGameActive(bool gameIsActive)
+        {
+            game.ActiveGame = gameIsActive;
+            GameStatusText = "Battle";
+
+            if(gameIsActive)
+            {
+                MusicVolume = 0.25;
+            }
             NotifyPropertyChanged(string.Empty);
+        }
+
+        public BattleTriangleFactViewModel()
+        {
+            Challenge = 5;
+            MultFactor = 5;
+            MusicVolume = 0;
+
+            GameStatusText = "Ready To Start...";
             resources = new ResponseResources(string.Concat(AppDomain.CurrentDomain.BaseDirectory, "Images\\"), new List<string> { "correct", "wrong", "battle", "bang", "hit" });
 
             BackgroundResource = resources.GetResponse("battle");
-            game.ActiveGame = true;
         }
 
         public void AnswerCurrentProblem(int answer)
@@ -72,7 +114,6 @@ namespace LearningGame.GUI
                 resources.GetResponse("bang").PlaySound();
             }
 
-
             CurrentProblem = game.GetProblem();
             QuestionViewModel = new TriangleFactViewModel(CurrentProblem);
 
@@ -85,15 +126,38 @@ namespace LearningGame.GUI
             LeftCombatantViewModel.Refresh();
         }
 
+        public void EnemyTimerAttack(object sender, EventArgs e)
+        {
+            resources.GetResponse("bang").PlaySound();
+        }
+
+
         public void Victory(object sender, EventArgs e)
         {
-
+            GameStatusText = "Winner!!!";
+            MusicVolume = 0;
+            NotifyPropertyChanged(string.Empty);
         }
 
         public void Defeat(object sender, EventArgs e)
         {
-
+            GameStatusText = "Try again next time.";
+            MusicVolume = 0;
+            NotifyPropertyChanged(string.Empty);
         }
 
+        int mChallenge;
+        public int Challenge
+        {
+            get
+            {
+                return mChallenge;
+            }
+            set
+            {
+                mChallenge = value;
+
+            }
+        }
     }
 }

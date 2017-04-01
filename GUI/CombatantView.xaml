@@ -18,9 +18,10 @@
             <ColumnDefinition Width="*" />
             <ColumnDefinition Width="100" />
         </Grid.ColumnDefinitions>
-        <TextBlock Grid.Column ="0" Grid.ColumnSpan="3" Text="{Binding CombatantData.Name, FallbackValue=NAME HERE}" HorizontalAlignment="Center" FontSize="24" />
+        <TextBlock Grid.Column ="0" Grid.ColumnSpan="3" Text="{Binding CombatantData.Name, FallbackValue=Waiting...}" HorizontalAlignment="Center" FontSize="24" />
         <Image Grid.Row="1" Grid.Column="0" Grid.ColumnSpan="3" Name="LeftCombatant" Source="{Binding Image, Mode=OneWay}"  Height="300" Width="500" Stretch="Uniform"/>
-        <ProgressBar Margin="7"  Grid.Row="2" Grid.Column="0" Grid.ColumnSpan="3" Name="LeftCombatantHealth" Height="30" Value="{Binding CombatantData.CurrentHP, FallbackValue=50}" Maximum="{Binding CombatantData.MaxHP, FallbackValue=100}"/>
-        <ProgressBar Margin="7"  Grid.Row="3" Grid.Column="0" Grid.ColumnSpan="3" Name="LeftCombatantMana" Foreground="Blue"  Height="30" Value="{Binding CombatantData.CurrentMana, FallbackValue=50}" Maximum="{Binding CombatantData.MaxHP, FallbackValue=100}"/>
+        <ProgressBar Margin="7"  Grid.Row="2" Grid.Column="0" Grid.ColumnSpan="3" Name="LeftCombatantHealth" Height="30" Value="{Binding CombatantData.CurrentHP, FallbackValue=0}" Maximum="{Binding CombatantData.MaxHP, FallbackValue=100}"/>
+        <TextBlock Margin="7" Grid.Row="2" Grid.Column="0" Grid.ColumnSpan="3" Text="{Binding CombatantData.CurrentHP, FallbackValue=0}" HorizontalAlignment="Center" FontSize="25" />
+        <ProgressBar Margin="7"  Grid.Row="3" Grid.Column="0" Grid.ColumnSpan="3" Name="LeftCombatantMana" Foreground="Blue"  Height="30" Value="{Binding CombatantData.CurrentMana, FallbackValue=0}" Maximum="{Binding CombatantData.MaxHP, FallbackValue=100}"/>
     </Grid>
 </UserControl>

@@ -37,7 +37,7 @@ namespace LearningGame.Core
             set
             {
                 mCurrentHP = value;
-                if(mCurrentHP < 0)
+                if(mCurrentHP <= 0)
                 {
                     mCurrentHP = 0;
                     OnDefeat(EventArgs.Empty);
@@ -52,6 +52,7 @@ namespace LearningGame.Core
         {
             int attackRoll = (int) Math.Round(rnd.Next(70, 130) * (double) PhysicalAttack / 100);
             int damage = attackRoll - target.PhysicalDefense;
+            damage = damage < 0 ? 1 : damage;
             target.CurrentHP -= damage;
         }
 

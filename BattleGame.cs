@@ -45,19 +45,32 @@ namespace LearningGame.Core
         }
         public event EventHandler EnemyPoll;
 
+        protected virtual void OnEnemyTimerAttack(EventArgs e)
+        {
+            EventHandler handler = EnemyTimerAttack;
+            if (handler != null)
+            {
+                handler(this, e);
+            }
+        }
+        public event EventHandler EnemyTimerAttack;
+
         private void dispatcherTimer_Tick(object sender, EventArgs e)
         {
             if(ActiveGame)
             {
                 Opponent.Attack(Player);
+                OnEnemyTimerAttack(e);
                 OnEnemyPoll(e);
             }
         }
 
-        public BattleGame(Combatant player, Combatant opponent, int lowerBound, int upperBound, List<string> operators)
+        public BattleGame(Combatant player, Combatant opponent, int lowerBound, int upperBound, int secondsBetweenActions, 
+            List<int> factors,
+            List<string> operators)
             : base(lowerBound, upperBound, operators, 1)
         {
-            Generator = new ProblemGenerator(lowerBound, upperBound, operators, new List<int>() { 3 });
+            Generator = new ProblemGenerator(lowerBound, upperBound, operators, factors);
             Problems = new List<Problem>();
 
             Player = player;
@@ -69,7 +82,7 @@ namespace LearningGame.Core
             Problems.Add(problem);
 
             dispatcherTimer.Tick += dispatcherTimer_Tick;
-            dispatcherTimer.Interval = new TimeSpan(0, 0, 6);
+            dispatcherTimer.Interval = new TimeSpan(0, 0, secondsBetweenActions);
             dispatcherTimer.Start();
 
             ActiveGame = false;

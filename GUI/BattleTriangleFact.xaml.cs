@@ -39,8 +39,7 @@ namespace LearningGame.GUI
             {
                 if (vm.CurrentProblem == null)
                 {
-                    vm = new BattleTriangleFactViewModel();
-                    DataContext = vm;
+                    return;
                 }
                 int answer;
                 if (int.TryParse(Answer.Text, out answer))
@@ -54,6 +53,13 @@ namespace LearningGame.GUI
         private void MediaElement_MediaEnded(object sender, RoutedEventArgs e)
         {
             BackgroudMedia.Position = TimeSpan.FromSeconds(0);
+        }
+
+        private void Button_Click(object sender, RoutedEventArgs e)
+        {
+            vm.SetupBattlers();
+            vm.SetGameActive(true);
+            Answer.Focus();
         }
     }
 }
