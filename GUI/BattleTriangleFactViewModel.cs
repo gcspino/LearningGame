@@ -183,6 +183,7 @@ namespace LearningGame.GUI
             set
             {
                 mChallenge = value;
+                NotifyPropertyChanged("Challenge");
 
             }
         }
