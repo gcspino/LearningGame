@@ -48,6 +48,11 @@ namespace LearningGame.GUI
                 }
                 Answer.Text = "";
             }
+            else if(e.Key == Key.M)
+            {
+                e.Handled = true;
+                vm.UseMagic();
+            }
         }
 
         private void MediaElement_MediaEnded(object sender, RoutedEventArgs e)

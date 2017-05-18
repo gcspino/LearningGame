@@ -25,6 +25,12 @@ namespace LearningGame.GUI
             ProblemData = problem;
         }
 
+        public void ShowAnswer()
+        {
+            mProblemTop = ProblemData.Solution().ToString();
+            NotifyPropertyChanged("ProblemTop");
+        }
+
         public Problem ProblemData
         {
             get { return mProblem; }

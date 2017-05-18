@@ -6,7 +6,7 @@
         xmlns:controls="clr-namespace:LearningGame.GUI"
         xmlns:local="clr-namespace:LearningGame.GUI"
         mc:Ignorable="d"
-        Title="Learning Game - Battle" Height="800" Width="1125">
+        Title="Learning Game - Battle" Height="800" Width="1155">
     <Grid>
         <Grid.RowDefinitions>
             <RowDefinition Height="Auto" />
@@ -22,7 +22,7 @@
         <Grid.ColumnDefinitions>
             <ColumnDefinition Width="25" />
             <ColumnDefinition Width="300" />
-            <ColumnDefinition Width="470" />
+            <ColumnDefinition Width="490" />
             <ColumnDefinition Width="300" />
             <ColumnDefinition Width="25" />
         </Grid.ColumnDefinitions>

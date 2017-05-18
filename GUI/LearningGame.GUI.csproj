@@ -170,6 +170,12 @@
     <Content Include="Images\Hit_01.wav">
       <CopyToOutputDirectory>Always</CopyToOutputDirectory>
     </Content>
+    <Content Include="Images\Magic_01.jpg">
+      <CopyToOutputDirectory>Always</CopyToOutputDirectory>
+    </Content>
+    <Content Include="Images\Magic_01.wav">
+      <CopyToOutputDirectory>Always</CopyToOutputDirectory>
+    </Content>
     <Content Include="Images\Wrong_01.jpg">
       <CopyToOutputDirectory>Always</CopyToOutputDirectory>
     </Content>

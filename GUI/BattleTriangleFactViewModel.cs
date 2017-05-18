@@ -154,7 +154,7 @@ namespace LearningGame.GUI
             MusicVolume = 0;
 
             GameStatusText = "Ready To Start...";
-            resources = new ResponseResources(string.Concat(AppDomain.CurrentDomain.BaseDirectory, "Images\\"), new List<string> { "correct", "wrong", "battle", "bang", "hit" });
+            resources = new ResponseResources(string.Concat(AppDomain.CurrentDomain.BaseDirectory, "Images\\"), new List<string> { "correct", "wrong", "battle", "bang", "hit", "magic" });
 
             BackgroundResource = resources.GetResponse("battle");
         }
@@ -179,6 +179,17 @@ namespace LearningGame.GUI
             QuestionViewModel = new TriangleFactViewModel(CurrentProblem);
 
             NotifyPropertyChanged(string.Empty);
+        }
+
+        public void UseMagic()
+        {
+            if (LeftCombatantViewModel.CombatantData.CurrentMana >= 20)
+            {
+                LeftCombatantViewModel.CombatantData.CurrentMana -= 20;
+                QuestionViewModel.ShowAnswer();
+                resources.GetResponse("magic").PlaySound();
+                LeftCombatantViewModel.Refresh();
+            }
         }
 
         public void EnemyAct(object sender, EventArgs e)
