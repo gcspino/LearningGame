@@ -22,8 +22,8 @@ namespace LearningGame.GUI
         public double MusicVolume { get; set; }
         public string GameStatusText { get; set; }
 
-        private int mMultFactor;
-        public int MultFactor
+        private string mMultFactor;
+        public string MultFactor
         {
             get
             {
@@ -47,6 +47,41 @@ namespace LearningGame.GUI
             if (null != PropertyChanged) PropertyChanged(this, new PropertyChangedEventArgs(p));
         }
 
+        public List<int> GetMultFactors(string multFactors)
+        {
+            int singleFactor = 0;
+            if(int.TryParse(multFactors, out singleFactor))
+            {
+                return new List<int>() { singleFactor };
+            }
+            else
+            {
+                string[] splitFactors= multFactors.Split(new string[] { "," , ";", " " }, StringSplitOptions.RemoveEmptyEntries);
+                if (splitFactors.Any())
+                {
+                    List<int> factors = new List<int>();
+                    foreach (string subFactor in splitFactors)
+                    {
+                        if (int.TryParse(subFactor, out singleFactor))
+                        {
+                            factors.Add(singleFactor);
+                        }
+                    }
+
+                    if(!factors.Any())
+                    {
+                        return null;
+                    }
+
+                    return factors;
+                }
+                else
+                {
+                    return null;
+                } 
+            }
+        }
+
         public void SetupBattlers()
         {
             if (game != null)
@@ -59,11 +94,12 @@ namespace LearningGame.GUI
             Combatant playerCombatant = new Combatant("Mia", 80, 100, 10, 5, "Mia.png");
 
             LeftCombatantViewModel = new CombatantViewModel(playerCombatant, portraits);
+            List<int> multFactors = GetMultFactors(mMultFactor);
 
-            Combatant EnemyCombatant = GetCombatant(MultFactor, difficultyFactor);
+            Combatant EnemyCombatant = GetCombatant(multFactors.First(), difficultyFactor);
             RightCombatantViewModel = new CombatantViewModel(EnemyCombatant, portraits);
 
-            game = new BattleGame(playerCombatant, EnemyCombatant, 2, 9, 11 - Challenge, new List<int>() { MultFactor }, new List<string>() { "*" });
+            game = new BattleGame(playerCombatant, EnemyCombatant, 2, 9, 11 - Challenge, multFactors, new List<string>() { "*" });
             game.EnemyPoll += EnemyAct;
             game.EnemyTimerAttack += EnemyTimerAttack;
             game.Victory += Victory;
@@ -113,8 +149,8 @@ namespace LearningGame.GUI
 
         public BattleTriangleFactViewModel()
         {
-            Challenge = 5;
-            MultFactor = 5;
+            Challenge = 7;
+            MultFactor = "5";
             MusicVolume = 0;
 
             GameStatusText = "Ready To Start...";
