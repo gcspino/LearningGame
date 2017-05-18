@@ -34,6 +34,9 @@
     <ErrorReport>prompt</ErrorReport>
     <WarningLevel>4</WarningLevel>
   </PropertyGroup>
+  <PropertyGroup>
+    <ApplicationIcon>MiaIcon.ico</ApplicationIcon>
+  </PropertyGroup>
   <ItemGroup>
     <Reference Include="System" />
     <Reference Include="System.Data" />
@@ -185,6 +188,7 @@
     <Content Include="Images\Wrong_01.wma">
       <CopyToOutputDirectory>Always</CopyToOutputDirectory>
     </Content>
+    <Resource Include="MiaIcon.ico" />
     <Content Include="Portraits\DefaultGuy.png">
       <CopyToOutputDirectory>Always</CopyToOutputDirectory>
     </Content>
