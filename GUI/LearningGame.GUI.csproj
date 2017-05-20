@@ -189,6 +189,9 @@
       <CopyToOutputDirectory>Always</CopyToOutputDirectory>
     </Content>
     <Resource Include="MiaIcon.ico" />
+    <Content Include="Portraits\Boss.png">
+      <CopyToOutputDirectory>Always</CopyToOutputDirectory>
+    </Content>
     <Content Include="Portraits\DefaultGuy.png">
       <CopyToOutputDirectory>Always</CopyToOutputDirectory>
     </Content>

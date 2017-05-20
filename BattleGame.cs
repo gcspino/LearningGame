@@ -70,7 +70,7 @@ namespace LearningGame.Core
             List<string> operators)
             : base(lowerBound, upperBound, operators, 1)
         {
-            Generator = new ProblemGenerator(lowerBound, upperBound, operators, factors);
+            Generator = new ProblemGenerator(lowerBound, upperBound, operators, factors, opponent.EmptyBag == null, opponent.EmptyBag);
             Problems = new List<Problem>();
 
             Player = player;

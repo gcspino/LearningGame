@@ -12,7 +12,7 @@ namespace LearningGame.Core
         public BasicGame(int lowerBound, int upperBound, List<string> operators, int problemCount) 
             : base(lowerBound, upperBound,operators, problemCount)
         {
-            Generator = new ProblemGenerator(lowerBound, upperBound, operators, null);
+            Generator = new ProblemGenerator(lowerBound, upperBound, operators, null, true ,()=> { });
             Problems = new List<Problem>();
 
             for (int i = 0; i < problemCount; i++)

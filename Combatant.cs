@@ -29,6 +29,7 @@ namespace LearningGame.Core
 
         public int MaxMana { get; set; }
         public int CurrentMana { get; set; }
+        public Action EmptyBag = null;
 
         private int mCurrentHP;
         public int CurrentHP

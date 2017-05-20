@@ -96,10 +96,22 @@ namespace LearningGame.GUI
             LeftCombatantViewModel = new CombatantViewModel(playerCombatant, portraits);
             List<int> multFactors = GetMultFactors(mMultFactor);
 
-            Combatant EnemyCombatant = GetCombatant(multFactors.First(), difficultyFactor);
+            Combatant EnemyCombatant = GetCombatant(multFactors.First(), difficultyFactor, mBossMode, playerCombatant);
             RightCombatantViewModel = new CombatantViewModel(EnemyCombatant, portraits);
 
-            game = new BattleGame(playerCombatant, EnemyCombatant, 2, 9, 11 - Challenge, multFactors, new List<string>() { "x" });
+            if (mBossMode)
+            {
+                EnemyCombatant.EmptyBag += () =>
+                {
+                    LeftCombatantViewModel.Refresh();
+                    RightCombatantViewModel.Refresh();
+                };
+                playerCombatant.CurrentMana = 0;
+            }
+
+            int interval = mBossMode ? 20 + (10 - Challenge ) * 3 : 11 - Challenge;
+
+            game = new BattleGame(playerCombatant, EnemyCombatant, 2, 9, interval, multFactors, new List<string>() { "x" });
             game.EnemyPoll += EnemyAct;
             game.EnemyTimerAttack += EnemyTimerAttack;
             game.Victory += Victory;
@@ -115,23 +127,36 @@ namespace LearningGame.GUI
             
         }
 
-        private  Combatant GetCombatant(int MultFactor, double difficultyFactor)
+        private  Combatant GetCombatant(int MultFactor, double difficultyFactor, bool bossMode, Combatant playerCombatant)
         {
             Combatant comb;
 
-            switch (MultFactor)
+            if (bossMode)
             {
-                case 3:
-                    comb = new Combatant("Three-Man", 80, 0, (int)(7 * difficultyFactor), 3, "ThreeMan.png");
-                    break;
-                case 4:
-                    comb = new Combatant("Four-Man", 80, 0, (int)(7 * difficultyFactor), 3, "FourMan.png");
-                    break;
-                default:
-                    comb = new Combatant(string.Concat(MultFactor,"-Guy"), 80, 0, (int)(7 * difficultyFactor), 3, "DefaultGuy.png");
-                    break;
+                comb = new Combatant(string.Concat(MultFactor, "-Boss"), 100, 0, 9999, 9999, "Boss.png");
+                comb.EmptyBag = () =>
+                    {
+                        comb.PhysicalDefense = 0;
+                        playerCombatant.PhysicalAttack = 9999;
+                        playerCombatant.Attack(comb);
+                    };
+                   
             }
-
+            else
+            {
+                switch (MultFactor)
+                {
+                    case 3:
+                        comb = new Combatant("Three-Man", 80, 0, (int)(7 * difficultyFactor), 3, "ThreeMan.png");
+                        break;
+                    case 4:
+                        comb = new Combatant("Four-Man", 80, 0, (int)(7 * difficultyFactor), 3, "FourMan.png");
+                        break;
+                    default:
+                        comb = new Combatant(string.Concat(MultFactor, "-Guy"), 80, 0, (int)(7 * difficultyFactor), 3, "DefaultGuy.png");
+                        break;
+                }
+            }
             return comb;
         }
 
@@ -183,6 +208,11 @@ namespace LearningGame.GUI
 
         public void UseMagic()
         {
+            if(mBossMode)
+            {
+                return;
+            }
+
             if (LeftCombatantViewModel.CombatantData.CurrentMana >= 20)
             {
                 LeftCombatantViewModel.CombatantData.CurrentMana -= 20;
@@ -218,6 +248,18 @@ namespace LearningGame.GUI
             game.ActiveGame = false;
             MusicVolume = 0;
             NotifyPropertyChanged(string.Empty);
+        }
+
+        bool mBossMode;
+        public bool BossMode
+        {
+            get { return mBossMode; }
+            set
+            {
+                mBossMode = value;
+                NotifyPropertyChanged("BossMode");
+            }
+
         }
 
         int mChallenge;

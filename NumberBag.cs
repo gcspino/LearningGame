@@ -12,16 +12,20 @@ namespace LearningGame.Core
     {
         private List<int> mBag;
         private List<int> mOriginalBag;
+        public Action EmptyBagAction = null;
+        private bool mAutoRefreshBag = true;
 
         Random rnd = new Random();
 
-        public NumberBag(List<int> numbers)
+        public NumberBag(List<int> numbers, bool autoRefreshBag, Action emptyBagAction)
         {
             mOriginalBag = numbers;
             mBag = numbers.ToList();
+            mAutoRefreshBag = autoRefreshBag;
+            EmptyBagAction = emptyBagAction;   
         }
 
-        public NumberBag(int lowerBound, int upperBound)
+        public NumberBag(int lowerBound, int upperBound, bool autoRefreshBag, Action emptyBagAction)
         {
             List<int> origBag = new List<int>();
             for(int i = lowerBound; i <= upperBound; i++)
@@ -30,6 +34,8 @@ namespace LearningGame.Core
             }
             mOriginalBag = origBag;
             mBag = mOriginalBag.ToList();
+            mAutoRefreshBag = autoRefreshBag;
+            EmptyBagAction = emptyBagAction;
         }
 
         public bool HasNumbers()
@@ -42,7 +48,7 @@ namespace LearningGame.Core
             mBag = mOriginalBag.ToList();
         }
 
-        public int DrawNumber(bool autoRefresh)
+        public int DrawNumber()
         {
             if(HasNumbers())
             {
@@ -54,15 +60,17 @@ namespace LearningGame.Core
 
                 return drawNumber;
             }
-            else if(autoRefresh)
+            else if(mAutoRefreshBag)
             {
                 RefreshBag();
-                return DrawNumber(false);
+                return DrawNumber();
             }
             else
             {
-                throw new InvalidOperationException();
+                EmptyBagAction();
+                return 0;
             }
         }
+
     }
 }
