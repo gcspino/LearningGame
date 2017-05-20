@@ -99,7 +99,7 @@ namespace LearningGame.GUI
             Combatant EnemyCombatant = GetCombatant(multFactors.First(), difficultyFactor);
             RightCombatantViewModel = new CombatantViewModel(EnemyCombatant, portraits);
 
-            game = new BattleGame(playerCombatant, EnemyCombatant, 2, 9, 11 - Challenge, multFactors, new List<string>() { "*" });
+            game = new BattleGame(playerCombatant, EnemyCombatant, 2, 9, 11 - Challenge, multFactors, new List<string>() { "x" });
             game.EnemyPoll += EnemyAct;
             game.EnemyTimerAttack += EnemyTimerAttack;
             game.Victory += Victory;

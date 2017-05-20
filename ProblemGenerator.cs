@@ -13,15 +13,16 @@ namespace LearningGame.Core
         List<string> Operators;
         List<int> OtherFactors;
         Random rnd = new Random();
-
+        Dictionary<string,NumberBag> numberBags;
         public ProblemGenerator(int lowerBound, int upperBound, List<string> operators, List<int> otherFactors)
         {
             LowerBound = lowerBound;
             UpperBound = upperBound;
             Operators = operators;
             OtherFactors = otherFactors;
-        }
 
+            numberBags = operators.ToDictionary(c => c, d => new NumberBag(lowerBound, upperBound));
+        }
         public Problem GenerateProblem()
         {
 
@@ -32,6 +33,7 @@ namespace LearningGame.Core
             int a = rnd.Next(LowerBound, UpperBound+1);
             int b = rnd.Next(LowerBound, UpperBound+1);
             int factor = OtherFactors[rnd.Next(0, OtherFactors.Count())];
+            NumberBag operatorBag = numberBags[operatorType];
 
             switch (operatorType)
             {
@@ -52,6 +54,22 @@ namespace LearningGame.Core
                     else
                     {
                         b = factor;
+                    }
+                    returnProb = new MultiplicationProblem(a, b);
+                    break;
+                case "x":
+
+                    int pulledNumber = operatorBag.DrawNumber(true);
+
+                    if (rnd.Next(0, 2) < 1)
+                    {
+                        a = pulledNumber;
+                        b = factor;
+                    }
+                    else
+                    {
+                        a = factor;
+                        b = pulledNumber;
                     }
                     returnProb = new MultiplicationProblem(a, b);
                     break;

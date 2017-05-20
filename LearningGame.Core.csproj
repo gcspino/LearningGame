@@ -50,6 +50,7 @@
     <Compile Include="DivisionProblem.cs" />
     <Compile Include="Game.cs" />
     <Compile Include="MultiplicationProblem.cs" />
+    <Compile Include="NumberBag.cs" />
     <Compile Include="Problem.cs" />
     <Compile Include="ProblemGenerator.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
