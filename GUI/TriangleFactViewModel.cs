@@ -28,6 +28,7 @@ namespace LearningGame.GUI
             VoiceMode = voiceMode;
 
             synth = new SpeechSynthesizer();
+            synth.SelectVoiceByHints(VoiceGender.Female, VoiceAge.Teen);
             synth.SetOutputToDefaultAudioDevice();
 
             ProblemData = problem;
