@@ -5,6 +5,7 @@ using System.ComponentModel;
 using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
+using System.Speech.Synthesis;
 
 namespace LearningGame.GUI
 {
@@ -12,16 +13,23 @@ namespace LearningGame.GUI
     {
         Problem mProblem;
         Random rnd = new Random();
+        SpeechSynthesizer synth;
 
         public event PropertyChangedEventHandler PropertyChanged;
+        private bool VoiceMode;
 
         private void NotifyPropertyChanged(string p)
         {
             if (null != PropertyChanged) PropertyChanged(this, new PropertyChangedEventArgs(p));
         }
 
-        public TriangleFactViewModel(Problem problem)
+        public TriangleFactViewModel(Problem problem, bool voiceMode)
         {
+            VoiceMode = voiceMode;
+
+            synth = new SpeechSynthesizer();
+            synth.SetOutputToDefaultAudioDevice();
+
             ProblemData = problem;
         }
 
@@ -37,6 +45,7 @@ namespace LearningGame.GUI
             set
             {
                 mProblem = value;
+                
                 switch(ProblemData.Operator)
                 {
                     case "|":
@@ -50,6 +59,10 @@ namespace LearningGame.GUI
                         mProblemLeft = ProblemData.A.ToString();
                         mProblemRight = ProblemData.B.ToString();
                         mMiddleValue = "x";
+                        if(VoiceMode)
+                        {
+                            synth.SpeakAsync(string.Format("{0} times {1}", ProblemData.A.ToString(), ProblemData.B.ToString()));
+                        }
                         break;
                     case "/":
                         mProblemTop = ProblemData.A.ToString();

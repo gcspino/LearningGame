@@ -121,7 +121,7 @@ namespace LearningGame.GUI
             LeftCombatantViewModel.Refresh();
             CurrentProblem = game.GetProblem();
 
-            QuestionViewModel = new TriangleFactViewModel(CurrentProblem);
+            QuestionViewModel = new TriangleFactViewModel(CurrentProblem, VoiceMode);
 
             SetGameActive(true);
             
@@ -201,8 +201,8 @@ namespace LearningGame.GUI
             }
 
             CurrentProblem = game.GetProblem();
-            QuestionViewModel = new TriangleFactViewModel(CurrentProblem);
-
+            QuestionViewModel = new TriangleFactViewModel(CurrentProblem, VoiceMode);
+            
             NotifyPropertyChanged(string.Empty);
         }
 
@@ -260,6 +260,17 @@ namespace LearningGame.GUI
                 NotifyPropertyChanged("BossMode");
             }
 
+        }
+
+        bool mVoiceMode;
+        public bool VoiceMode
+        {
+            get { return mVoiceMode; }
+            set
+            {
+                mVoiceMode = value;
+                NotifyPropertyChanged("VoiceMode");
+            }
         }
 
         int mChallenge;
