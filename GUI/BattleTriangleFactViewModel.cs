@@ -40,6 +40,14 @@ namespace LearningGame.GUI
         public CombatantViewModel RightCombatantViewModel { get; set; }
         public TriangleFactViewModel QuestionViewModel { get; set; }
 
+        public List<string> Operators
+        {
+            get
+            {
+                return new List<string>() { "x", "+", "-" };
+            }
+        }
+
         public event PropertyChangedEventHandler PropertyChanged;
 
         private void NotifyPropertyChanged(string p)
@@ -106,12 +114,17 @@ namespace LearningGame.GUI
                     LeftCombatantViewModel.Refresh();
                     RightCombatantViewModel.Refresh();
                 };
+                if(Operator != "x")
+                {
+                    EnemyCombatant.CurrentHP = 15;
+                    RightCombatantViewModel.Refresh();
+                }
                 playerCombatant.CurrentMana = 0;
             }
 
             int interval = mBossMode ? 20 + (10 - Challenge ) * 3 : 11 - Challenge;
 
-            game = new BattleGame(playerCombatant, EnemyCombatant, 2, 9, interval, multFactors, new List<string>() { "x" });
+            game = new BattleGame(playerCombatant, EnemyCombatant, 2, Operator == "x" ? 9 : multFactors.FirstOrDefault(), interval, multFactors, new List<string>() { Operator });
             game.EnemyPoll += EnemyAct;
             game.EnemyTimerAttack += EnemyTimerAttack;
             game.Victory += Victory;
@@ -177,7 +190,7 @@ namespace LearningGame.GUI
             Challenge = 7;
             MultFactor = "5";
             MusicVolume = 0;
-
+            Operator = "*";
             GameStatusText = "Ready To Start...";
             resources = new ResponseResources(string.Concat(AppDomain.CurrentDomain.BaseDirectory, "Images\\"), new List<string> { "correct", "wrong", "battle", "bang", "hit", "magic" });
 
@@ -270,6 +283,17 @@ namespace LearningGame.GUI
             {
                 mVoiceMode = value;
                 NotifyPropertyChanged("VoiceMode");
+            }
+        }
+
+        string mOperator;
+        public string Operator
+        {
+            get { return mOperator; }
+            set
+            {
+                mOperator = value;
+                NotifyPropertyChanged("Operator");
             }
         }
 

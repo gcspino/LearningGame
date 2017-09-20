@@ -65,6 +65,26 @@ namespace LearningGame.GUI
                             synth.SpeakAsync(string.Format("{0} times {1}", ProblemData.A.ToString(), ProblemData.B.ToString()));
                         }
                         break;
+                    case "-":
+                        mProblemTop = "?";
+                        mProblemLeft = ProblemData.A.ToString();
+                        mProblemRight = ProblemData.B.ToString();
+                        mMiddleValue = "-";
+                        if (VoiceMode)
+                        {
+                            synth.SpeakAsync(string.Format("{0} minus {1}", ProblemData.A.ToString(), ProblemData.B.ToString()));
+                        }
+                        break;
+                    case "+":
+                        mProblemTop = "?";
+                        mProblemLeft = ProblemData.A.ToString();
+                        mProblemRight = ProblemData.B.ToString();
+                        mMiddleValue = "+";
+                        if (VoiceMode)
+                        {
+                            synth.SpeakAsync(string.Format("{0} plus {1}", ProblemData.A.ToString(), ProblemData.B.ToString()));
+                        }
+                        break;
                     case "/":
                         mProblemTop = ProblemData.A.ToString();
                         if (rnd.Next(0, 2) > 0)
