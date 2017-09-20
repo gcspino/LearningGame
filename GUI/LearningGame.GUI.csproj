@@ -150,6 +150,16 @@
     <Content Include="Images\Battle_01.wav">
       <CopyToOutputDirectory>Always</CopyToOutputDirectory>
     </Content>
+    <Content Include="Images\Battle_02.JPG">
+      <CopyToOutputDirectory>Always</CopyToOutputDirectory>
+    </Content>
+    <Content Include="Images\Battle_02.wav">
+      <CopyToOutputDirectory>Always</CopyToOutputDirectory>
+    </Content>
+    <Content Include="Images\Battle_03.JPG">
+      <CopyToOutputDirectory>Always</CopyToOutputDirectory>
+    </Content>
+    <Content Include="Images\Battle_03.wav" />
     <Content Include="Images\Correct_01.JPG">
       <CopyToOutputDirectory>Always</CopyToOutputDirectory>
     </Content>

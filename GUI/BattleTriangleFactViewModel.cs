@@ -97,7 +97,7 @@ namespace LearningGame.GUI
                 game.ActiveGame = false;
                 game = null;
             }
-                double difficultyFactor = (Challenge - 5) * .1 + 1;
+            double difficultyFactor = (Challenge - 5) * .1 + 1;
             portraits = new ImageResources(string.Concat(AppDomain.CurrentDomain.BaseDirectory, "Portraits\\"));
             Combatant playerCombatant = new Combatant("Mia", 80, 100, 10, 5, "Mia.png");
 
