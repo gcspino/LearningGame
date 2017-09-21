@@ -1,5 +1,6 @@
 ﻿using LearningGame.Core;
 using System;
+using System.ComponentModel;
 using System.Collections.Generic;
 using System.Linq;
 using System.Text;
@@ -14,6 +15,8 @@ using System.Windows.Media;
 using System.Windows.Media.Imaging;
 using System.Windows.Navigation;
 using System.Windows.Shapes;
+using System.IO;
+using System.Runtime.Serialization.Formatters.Binary;
 
 namespace LearningGame.GUI
 {
@@ -31,6 +34,17 @@ namespace LearningGame.GUI
             vm = new BattleTriangleFactViewModel();
             DataContext = vm;
             Answer.Focus();
+            PlayerState  playerState;
+            if(!File.Exists("PlayerState.osl"))
+            {
+                playerState = new PlayerState(0);
+                PlayerStateHelper.WriteState(playerState);
+            }
+            else
+            {
+                playerState = PlayerStateHelper.ReadState();
+            }
+            vm.State = playerState;
         }
 
         private void Answer_KeyDown(object sender, KeyEventArgs e)

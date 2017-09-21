@@ -19,6 +19,7 @@ namespace LearningGame.GUI
         private ResponseUIPair BackgroundResource;
 
         public Problem CurrentProblem { get; set; }
+        public PlayerState State { get; set; }
         public double MusicVolume { get; set; }
         public string GameStatusText { get; set; }
 
@@ -114,7 +115,7 @@ namespace LearningGame.GUI
                     LeftCombatantViewModel.Refresh();
                     RightCombatantViewModel.Refresh();
                 };
-                if(Operator != "x")
+                if(Operator == "+" || Operator == "-")
                 {
                     EnemyCombatant.CurrentHP = 15;
                     RightCombatantViewModel.Refresh();
@@ -124,7 +125,7 @@ namespace LearningGame.GUI
 
             int interval = mBossMode ? 20 + (10 - Challenge ) * 3 : 11 - Challenge;
 
-            game = new BattleGame(playerCombatant, EnemyCombatant, 2, Operator == "x" ? 9 : multFactors.FirstOrDefault(), interval, multFactors, new List<string>() { Operator });
+            game = new BattleGame(playerCombatant, EnemyCombatant, 2, Operator == "x" || Operator == "*" ? 9 : multFactors.FirstOrDefault(), interval, multFactors, new List<string>() { Operator });
             game.EnemyPoll += EnemyAct;
             game.EnemyTimerAttack += EnemyTimerAttack;
             game.Victory += Victory;
@@ -168,6 +169,12 @@ namespace LearningGame.GUI
                     case 5:
                         comb = new Combatant("Five-Woman", 80, 0, (int)(7 * difficultyFactor), 3, "FiveWoman.png");
                         break;
+                    case 7:
+                        comb = new Combatant("Seven-Woman", 80, 0, (int)(7 * difficultyFactor), 3, "SevenWoman.png");
+                        break;
+                    case 8:
+                        comb = new Combatant("Eight-Monster", 80, 0, (int)(7 * difficultyFactor), 3, "EightMonster.png");
+                        break;
                     default:
                         comb = new Combatant(string.Concat(MultFactor, "-Guy"), 80, 0, (int)(7 * difficultyFactor), 3, "DefaultGuy.png");
                         break;
@@ -193,7 +200,7 @@ namespace LearningGame.GUI
             Challenge = 7;
             MultFactor = "5";
             MusicVolume = 0;
-            Operator = "*";
+            Operator = "x";
             GameStatusText = "Ready To Start...";
             resources = new ResponseResources(string.Concat(AppDomain.CurrentDomain.BaseDirectory, "Images\\"), new List<string> { "correct", "wrong", "battle", "bang", "hit", "magic" });
 
@@ -252,10 +259,15 @@ namespace LearningGame.GUI
 
         public void Victory(object sender, EventArgs e)
         {
-            GameStatusText = "Winner!!!";
+            int goldReward = PlayerStateHelper.GetReward(this.GetMultFactors(this.MultFactor),
+                this.Operator, this.Challenge,LeftCombatantViewModel.CombatantData,
+                RightCombatantViewModel.CombatantData, this.BossMode);
+            GameStatusText = string.Format("Winner!!! You earn {0} gold!", goldReward);
             game.ActiveGame = false;
             MusicVolume = 0;
+            State.Gold += goldReward;
             NotifyPropertyChanged(string.Empty);
+            PlayerStateHelper.WriteState(State);
         }
 
         public void Defeat(object sender, EventArgs e)
@@ -312,6 +324,14 @@ namespace LearningGame.GUI
                 mChallenge = value;
                 NotifyPropertyChanged("Challenge");
 
+            }
+        }
+
+        public string PlayerGoldText
+        {
+            get
+            {
+                return string.Format("Gold: {0}", State.Gold);
             }
         }
     }
