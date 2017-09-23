@@ -175,6 +175,9 @@ namespace LearningGame.GUI
                     case 8:
                         comb = new Combatant("Eight-Monster", 80, 0, (int)(7 * difficultyFactor), 3, "EightMonster.png");
                         break;
+                    case 9:
+                        comb = new Combatant("Nine-Woman", 80, 0, (int)(7 * difficultyFactor), 3, "NineWoman.png");
+                        break;
                     default:
                         comb = new Combatant(string.Concat(MultFactor, "-Guy"), 80, 0, (int)(7 * difficultyFactor), 3, "DefaultGuy.png");
                         break;

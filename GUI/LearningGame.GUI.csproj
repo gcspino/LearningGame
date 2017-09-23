@@ -215,6 +215,9 @@
     <Content Include="Portraits\FourMan.png">
       <CopyToOutputDirectory>Always</CopyToOutputDirectory>
     </Content>
+    <Content Include="Portraits\NineWoman.png">
+      <CopyToOutputDirectory>Always</CopyToOutputDirectory>
+    </Content>
     <Content Include="Portraits\SevenWoman.png">
       <CopyToOutputDirectory>Always</CopyToOutputDirectory>
     </Content>

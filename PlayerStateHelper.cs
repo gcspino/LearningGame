@@ -37,14 +37,14 @@ namespace LearningGame.Core
                 return 0;
             }
 
-            double multiFactorBonus = officialOperatorType == "*" ? (factors.Count() - 1) * (int)(challenge / 2) : 0;
+            double multiFactorBonus = officialOperatorType == "*" ? (factors.Count() - 1) * (int)((double)challenge / 2.0) : 0;
 
             double challengeBonus = challenge + (int)(0.4 * Math.Pow(challenge, 2));
 
-            double manaBossFactor = BossMode ? 1 + (0.4 * challenge / 10) : player.CurrentMana / player.MaxMana;
+            double manaBossFactor = BossMode ? 1 + (0.4 * (double)challenge / 10.0) : (double)player.CurrentMana / (double)player.MaxMana;
 
             double hpRewardWeight = challenge;
-            double hpFactor = challenge > 8 ? (player.CurrentHP + challenge / 10 * player.MaxHP) / player.MaxHP : 0;
+            double hpFactor = challenge > 8 ? ((double)player.CurrentHP + (double)challenge / 10.0 * (double)player.MaxHP) / (double)player.MaxHP : 0;
 
             double operatorFactor = operatorType == "x" || operatorType == "*" ? 1 : operatorType == "-" ? 0.5 : 0.2;
             
