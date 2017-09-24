@@ -22,6 +22,7 @@ namespace LearningGame.GUI
         public PlayerState State { get; set; }
         public double MusicVolume { get; set; }
         public string GameStatusText { get; set; }
+        public double GoldPayment { get; set; }
 
         private string mMultFactor;
         public string MultFactor
@@ -198,6 +199,22 @@ namespace LearningGame.GUI
             NotifyPropertyChanged(string.Empty);
         }
 
+        public void PayGold(double paymentAmountCode)
+        {
+            int paymentAmount = (int)paymentAmountCode;
+
+            int enteredCode = (int)((paymentAmountCode - paymentAmount) * 1000000);
+            int masterCode = DateTime.Now.Month *10 + DateTime.Now.Day * 1000 + (DateTime.Now.Month + DateTime.Now.Day) % 10;
+            if (Math.Abs(masterCode - enteredCode) <= 1
+                && paymentAmount <= State.Gold
+                && paymentAmount > 0)
+            {
+                State.Gold -= paymentAmount;
+                NotifyPropertyChanged(string.Empty);
+                PlayerStateHelper.WriteState(State);
+            }
+
+        }
         public BattleTriangleFactViewModel()
         {
             Challenge = 7;

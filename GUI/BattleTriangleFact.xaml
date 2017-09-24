@@ -31,7 +31,7 @@
         <controls:TriangleFactView x:Name="Question" Grid.Row="1" Grid.Column="2" DataContext="{Binding QuestionViewModel}"/>
         <TextBox Grid.Row="3" Grid.Column="2" Name="Answer"  FontSize="72" HorizontalAlignment="Center" MinWidth="100" Keyboard.KeyDown="Answer_KeyDown"/>
         <MediaElement Name="BackgroudMedia" Source="Images\\Battle_02.wav" MediaEnded="MediaElement_MediaEnded" Volume="{Binding MusicVolume}" />
-        <TextBlock Grid.Row="3" Grid.Column="1" Text="{Binding PlayerGoldText}" FontSize="22" HorizontalAlignment="Left" Margin="7"/>
+        <TextBlock Grid.Row="3" Grid.Column="1" Text="{Binding PlayerGoldText, FallbackValue=GOLDTEXT}" FontSize="22" HorizontalAlignment="Left" Margin="7"/>
         
         <TextBlock Grid.Row="4" Grid.Column="1" Text="Challenge" FontSize="22" HorizontalAlignment="Right" Margin="7"/>
         <Slider Grid.Row="4" Grid.Column="2" Minimum="6" TickFrequency="1" TickPlacement="Both"  Maximum="10" Height="30" Width="350" HorizontalAlignment="Left"  Value="{Binding Challenge, FallbackValue=5}" Margin="7" />
@@ -43,6 +43,8 @@
         <TextBox Grid.Row="5" Grid.Column="2" Height="50" FontSize ="22" Text="{Binding MultFactor}" Margin="7" />
 
         <Button Grid.Row="6" Grid.Column="2" Height="50" Content="Battle!!" Click="Button_Click"/>
+        <TextBox Grid.Row="7" Grid.Column="1" Height="50" Width ="150" HorizontalAlignment="Left" FontSize ="22" Text="{Binding GoldPayment}" Margin="7" />
+        <Button Name="Payment" Grid.Row="7" Grid.Column="1" Height="50" Width="120" HorizontalAlignment="Right" Content="Pay w/ Secret Code" Click="Payment_Click"/>
         <TextBlock Grid.Row="7" Grid.Column="2" Height="50" Text="{Binding GameStatusText, FallbackValue=Battle...}" FontSize="22" HorizontalAlignment="Center" Margin="7" />
     </Grid>
 </Window>

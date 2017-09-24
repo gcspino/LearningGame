@@ -80,5 +80,11 @@ namespace LearningGame.GUI
             vm.SetGameActive(true);
             Answer.Focus();
         }
+
+        private void Payment_Click(object sender, RoutedEventArgs e)
+        {
+
+            vm.PayGold(vm.GoldPayment);
+        }
     }
 }
