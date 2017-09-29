@@ -60,13 +60,13 @@ namespace LearningGame.GUI
         public List<int> GetMultFactors(string multFactors)
         {
             int singleFactor = 0;
-            if(int.TryParse(multFactors, out singleFactor))
+            if (int.TryParse(multFactors, out singleFactor))
             {
                 return new List<int>() { singleFactor };
             }
             else
             {
-                string[] splitFactors= multFactors.Split(new string[] { "," , ";", " " }, StringSplitOptions.RemoveEmptyEntries);
+                string[] splitFactors = multFactors.Split(new string[] { ",", ";", " " }, StringSplitOptions.RemoveEmptyEntries);
                 if (splitFactors.Any())
                 {
                     List<int> factors = new List<int>();
@@ -78,7 +78,7 @@ namespace LearningGame.GUI
                         }
                     }
 
-                    if(!factors.Any())
+                    if (!factors.Any())
                     {
                         return null;
                     }
@@ -88,7 +88,7 @@ namespace LearningGame.GUI
                 else
                 {
                     return null;
-                } 
+                }
             }
         }
 
@@ -116,7 +116,7 @@ namespace LearningGame.GUI
                     LeftCombatantViewModel.Refresh();
                     RightCombatantViewModel.Refresh();
                 };
-                if(Operator == "+" || Operator == "-")
+                if (Operator == "+" || Operator == "-")
                 {
                     EnemyCombatant.CurrentHP = 15;
                     RightCombatantViewModel.Refresh();
@@ -124,8 +124,7 @@ namespace LearningGame.GUI
                 playerCombatant.CurrentMana = 0;
             }
 
-            int interval = mBossMode ? 20 + (10 - Challenge ) * 3 : 11 - Challenge;
-
+            int interval = mBossMode ? 1 : 11 - Challenge;
             game = new BattleGame(playerCombatant, EnemyCombatant, 2, Operator == "x" || Operator == "*" ? 9 : multFactors.FirstOrDefault(), interval, multFactors, new List<string>() { Operator });
             game.EnemyPoll += EnemyAct;
             game.EnemyTimerAttack += EnemyTimerAttack;
@@ -139,23 +138,36 @@ namespace LearningGame.GUI
             QuestionViewModel = new TriangleFactViewModel(CurrentProblem, VoiceMode);
 
             SetGameActive(true);
-            
+
         }
 
-        private  Combatant GetCombatant(int MultFactor, double difficultyFactor, bool bossMode, Combatant playerCombatant)
+        private Combatant GetCombatant(int MultFactor, double difficultyFactor, bool bossMode, Combatant playerCombatant)
         {
             Combatant comb;
 
             if (bossMode)
             {
-                comb = new Combatant(string.Concat(MultFactor, "-Boss"), 100, 0, 9999, 9999, "Boss.png");
+                comb = new Combatant(string.Concat(MultFactor, "-Boss"), 100, 100, 0, 9999, "Boss.png");
+                comb.CurrentMana = comb.MaxMana - (20 + (10 - Challenge) * 3);
+                comb.Pulse += () =>
+                {
+                    if (comb.CurrentMana == comb.MaxMana)
+                    {
+                        comb.PhysicalAttack = 9999;
+                    }
+                    else
+                    {
+                        comb.CurrentMana += 1;
+                    }
+
+                };
                 comb.EmptyBag = () =>
                     {
                         comb.PhysicalDefense = 0;
                         playerCombatant.PhysicalAttack = 9999;
                         playerCombatant.Attack(comb);
                     };
-                   
+
             }
             else
             {
@@ -190,12 +202,12 @@ namespace LearningGame.GUI
             return comb;
         }
 
-        public void  SetGameActive(bool gameIsActive)
+        public void SetGameActive(bool gameIsActive)
         {
             game.ActiveGame = gameIsActive;
             GameStatusText = "Battle";
 
-            if(gameIsActive)
+            if (gameIsActive)
             {
                 MusicVolume = 0.25;
             }
@@ -207,7 +219,7 @@ namespace LearningGame.GUI
             int paymentAmount = (int)paymentAmountCode;
 
             int enteredCode = (int)((paymentAmountCode - paymentAmount) * 1000000);
-            int masterCode = DateTime.Now.Month *10 + DateTime.Now.Day * 1000 + (DateTime.Now.Month + DateTime.Now.Day) % 10;
+            int masterCode = DateTime.Now.Month * 10 + DateTime.Now.Day * 1000 + (DateTime.Now.Month + DateTime.Now.Day) % 10;
             if (Math.Abs(masterCode - enteredCode) <= 1
                 && paymentAmount <= State.Gold
                 && paymentAmount > 0)
@@ -232,7 +244,7 @@ namespace LearningGame.GUI
 
         public void AnswerCurrentProblem(int answer)
         {
-            if(game.Opponent.CurrentHP == 0)
+            if (game.Opponent.CurrentHP == 0)
             {
                 return;
             }
@@ -253,13 +265,13 @@ namespace LearningGame.GUI
 
             CurrentProblem = game.GetProblem();
             QuestionViewModel = new TriangleFactViewModel(CurrentProblem, VoiceMode);
-            
+
             NotifyPropertyChanged(string.Empty);
         }
 
         public void UseMagic()
         {
-            if(mBossMode)
+            if (mBossMode)
             {
                 return;
             }
@@ -281,14 +293,18 @@ namespace LearningGame.GUI
 
         public void EnemyTimerAttack(object sender, EventArgs e)
         {
-            resources.GetResponse("bang").PlaySound();
+            if (RightCombatantViewModel.CombatantData.PhysicalAttack >= 1)
+            {
+                resources.GetResponse("bang").PlaySound();
+            }
+            RightCombatantViewModel.CombatantData.Pulse?.Invoke();
         }
 
 
         public void Victory(object sender, EventArgs e)
         {
             int goldReward = PlayerStateHelper.GetReward(this.GetMultFactors(this.MultFactor),
-                this.Operator, this.Challenge,LeftCombatantViewModel.CombatantData,
+                this.Operator, this.Challenge, LeftCombatantViewModel.CombatantData,
                 RightCombatantViewModel.CombatantData, this.BossMode);
             GameStatusText = string.Format("Winner!!! You earn {0} gold!", goldReward);
             game.ActiveGame = false;

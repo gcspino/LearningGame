@@ -31,6 +31,8 @@ namespace LearningGame.Core
         public int CurrentMana { get; set; }
         public Action EmptyBag = null;
 
+        public Action Pulse = null;
+
         private int mCurrentHP;
         public int CurrentHP
         {
@@ -51,10 +53,13 @@ namespace LearningGame.Core
 
         public void Attack(Combatant target)
         {
-            int attackRoll = (int) Math.Round(rnd.Next(70, 130) * (double) PhysicalAttack / 100);
-            int damage = attackRoll - target.PhysicalDefense;
-            damage = damage < 0 ? 1 : damage;
-            target.CurrentHP -= damage;
+            if (PhysicalAttack > 0)
+            {
+                int attackRoll = (int)Math.Round(rnd.Next(70, 130) * (double)PhysicalAttack / 100);
+                int damage = attackRoll - target.PhysicalDefense;
+                damage = damage < 0 ? 1 : damage;
+                target.CurrentHP -= damage;
+            }
         }
 
         protected virtual void OnDefeat(EventArgs e)
