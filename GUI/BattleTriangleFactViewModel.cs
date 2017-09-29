@@ -173,6 +173,9 @@ namespace LearningGame.GUI
                     case 7:
                         comb = new Combatant("Seven-Woman", 80, 0, (int)(7 * difficultyFactor), 3, "SevenWoman.png");
                         break;
+                    case 6:
+                        comb = new Combatant("Six-Woman", 80, 0, (int)(7 * difficultyFactor), 3, "SixWoman.png");
+                        break;
                     case 8:
                         comb = new Combatant("Eight-Monster", 80, 0, (int)(7 * difficultyFactor), 3, "EightMonster.png");
                         break;
@@ -229,6 +232,11 @@ namespace LearningGame.GUI
 
         public void AnswerCurrentProblem(int answer)
         {
+            if(game.Opponent.CurrentHP == 0)
+            {
+                return;
+            }
+
             if (game.AttemptProblem(CurrentProblem, answer))
             {
                 LeftCombatantViewModel.CombatantData.Attack(RightCombatantViewModel.CombatantData);
