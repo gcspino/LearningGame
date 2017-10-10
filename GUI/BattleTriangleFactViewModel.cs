@@ -2,6 +2,7 @@
 using System;
 using System.Collections.Generic;
 using System.ComponentModel;
+using System.Diagnostics;
 using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
@@ -23,6 +24,8 @@ namespace LearningGame.GUI
         public double MusicVolume { get; set; }
         public string GameStatusText { get; set; }
         public double GoldPayment { get; set; }
+
+        private Stopwatch stopWatch = new Stopwatch();
 
         private string mMultFactor;
         public string MultFactor
@@ -166,6 +169,7 @@ namespace LearningGame.GUI
                         comb.PhysicalDefense = 0;
                         playerCombatant.PhysicalAttack = 9999;
                         playerCombatant.Attack(comb);
+                        resources.GetResponse("Win").PlaySound();
                     };
 
             }
@@ -202,14 +206,29 @@ namespace LearningGame.GUI
             return comb;
         }
 
+        public string SessionTimeStatus
+        {
+            get
+            {
+                TimeSpan ts = stopWatch.Elapsed;
+                return string.Format("Session Time: {0:00}:{1:00}:{2:00}",
+                    ts.Hours, ts.Minutes, ts.Seconds);
+            }
+        }
+
         public void SetGameActive(bool gameIsActive)
         {
             game.ActiveGame = gameIsActive;
             GameStatusText = "Battle";
-
+            
             if (gameIsActive)
             {
                 MusicVolume = 0.25;
+                stopWatch.Start();
+            }
+            else
+            {
+                stopWatch.Stop();
             }
             NotifyPropertyChanged(string.Empty);
         }

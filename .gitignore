@@ -1,3 +1,4 @@
 Debug
 Release
 /.vs/LearningGame.Core.Unity/v14/*.suo
+*.user
