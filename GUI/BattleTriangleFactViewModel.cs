@@ -237,7 +237,7 @@ namespace LearningGame.GUI
             MusicVolume = 0;
             Operator = "x";
             GameStatusText = "Ready To Start...";
-            resources = new ResponseResources(string.Concat(AppDomain.CurrentDomain.BaseDirectory, "Images\\"), new List<string> { "correct", "wrong", "battle", "bang", "hit", "magic" });
+            resources = new ResponseResources(string.Concat(AppDomain.CurrentDomain.BaseDirectory, "Images\\"), new List<string> { "correct", "wrong", "battle", "bang", "hit", "magic", "win" });
 
             BackgroundResource = resources.GetResponse("battle");
         }
@@ -253,11 +253,22 @@ namespace LearningGame.GUI
             {
                 LeftCombatantViewModel.CombatantData.Attack(RightCombatantViewModel.CombatantData);
                 RightCombatantViewModel.Refresh();
-                resources.GetResponse("hit").PlaySound();
+                if (RightCombatantViewModel.CombatantData.CurrentHP < 1)
+                {
+                    resources.GetResponse("Win").PlaySound();
+                }
+                else
+                {
+                    resources.GetResponse("hit").PlaySound();
+                }
             }
             else
             {
                 // incorrect
+                if(RightCombatantViewModel.CombatantData.PhysicalAttack < 1)
+                {
+                    RightCombatantViewModel.CombatantData.PhysicalAttack = 9999;
+                }
                 RightCombatantViewModel.CombatantData.Attack(LeftCombatantViewModel.CombatantData);
                 LeftCombatantViewModel.Refresh();
                 resources.GetResponse("bang").PlaySound();
