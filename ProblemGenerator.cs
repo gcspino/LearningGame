@@ -41,7 +41,28 @@ namespace LearningGame.Core
                     returnProb = new CorrectIncorrectProblem(1, 1);
                     break;
                 case "+":
-                    returnProb = new AdditionProblem(a, b);
+                    if(a+b > UpperBound)
+                    {
+                        if (rnd.Next(1, 100) > 50)
+                        {
+                            if (a == UpperBound)
+                            {
+                                b = 0;
+                            }
+                            else
+                            {
+                                b = rnd.Next(1, UpperBound - a);
+                            }
+                        }
+                        else
+                        {
+                            return GenerateProblem();
+                        }
+                    }
+                    if(rnd.Next(1,100)>50)
+                        returnProb = new AdditionProblem(a, b);
+                    else
+                        returnProb = new AdditionProblem(b, a);
                     break;
                 case "-":
                     returnProb = new SubtractionProblem(Math.Max(a, b), Math.Min(a, b));
