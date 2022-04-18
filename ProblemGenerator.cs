@@ -41,7 +41,11 @@ namespace LearningGame.Core
                     returnProb = new CorrectIncorrectProblem(1, 1);
                     break;
                 case "+":
-                    if(a+b > UpperBound)
+
+                    a = rnd.Next(1, UpperBound);
+                    b = rnd.Next(1, UpperBound);
+                    
+                    if (a+b > UpperBound)
                     {
                         if (rnd.Next(1, 100) > 50)
                         {
