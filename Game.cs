@@ -25,7 +25,22 @@ namespace LearningGame.Core
             }
             else
             {
-                // nothingl
+                // nothing
+            }
+
+            return correct;
+        }
+
+        public bool AttemptProblem(Problem problem, string answer)
+        {
+            bool correct = problem.IsAnswer(answer);
+            if (correct)
+            {
+                Score++;
+            }
+            else
+            {
+                // nothing
             }
 
             return correct;

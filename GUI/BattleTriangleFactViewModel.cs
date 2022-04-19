@@ -49,7 +49,7 @@ namespace LearningGame.GUI
         {
             get
             {
-                return new List<string>() { "x", "+", "-" };
+                return new List<string>() { "x", "+", "-", "Spell" };
             }
         }
 
@@ -285,6 +285,44 @@ namespace LearningGame.GUI
             {
                 // incorrect
                 if(RightCombatantViewModel.CombatantData.PhysicalAttack < 1)
+                {
+                    RightCombatantViewModel.CombatantData.PhysicalAttack = 9999;
+                }
+                RightCombatantViewModel.CombatantData.Attack(LeftCombatantViewModel.CombatantData);
+                LeftCombatantViewModel.Refresh();
+                resources.GetResponse("bang").PlaySound();
+            }
+
+            CurrentProblem = game.GetProblem();
+            QuestionViewModel = new TriangleFactViewModel(CurrentProblem, VoiceMode);
+
+            NotifyPropertyChanged(string.Empty);
+        }
+
+        public void AnswerCurrentProblem(string answer)
+        {
+            if (game.Opponent.CurrentHP == 0)
+            {
+                return;
+            }
+
+            if (game.AttemptProblem(CurrentProblem, answer))
+            {
+                LeftCombatantViewModel.CombatantData.Attack(RightCombatantViewModel.CombatantData);
+                RightCombatantViewModel.Refresh();
+                if (RightCombatantViewModel.CombatantData.CurrentHP < 1)
+                {
+                    resources.GetResponse("Win").PlaySound();
+                }
+                else
+                {
+                    resources.GetResponse("hit").PlaySound();
+                }
+            }
+            else
+            {
+                // incorrect
+                if (RightCombatantViewModel.CombatantData.PhysicalAttack < 1)
                 {
                     RightCombatantViewModel.CombatantData.PhysicalAttack = 9999;
                 }

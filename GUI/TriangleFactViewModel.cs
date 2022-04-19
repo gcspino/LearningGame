@@ -100,6 +100,16 @@ namespace LearningGame.GUI
                         }
                         mMiddleValue = "* /";
                         break;
+                    case "Spell":
+                        mProblemTop = "Please spell:";
+                        mProblemLeft = string.Empty;
+                        mProblemRight = string.Empty;
+                        mMiddleValue = ProblemData.Prompt;
+                        if (VoiceMode)
+                        {
+                            synth.SpeakAsync(string.Format("Please spell: {0}", ProblemData.Answer.ToString()));
+                        }
+                        break;
                 }
                 NotifyPropertyChanged(string.Empty);
             }

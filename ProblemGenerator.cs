@@ -1,5 +1,6 @@
 ﻿using System;
 using System.Collections.Generic;
+using System.IO;
 using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
@@ -14,6 +15,7 @@ namespace LearningGame.Core
         List<int> OtherFactors;
         Random rnd = new Random();
         Dictionary<string,NumberBag> numberBags;
+        Dictionary<string, string> QandAs;
         public ProblemGenerator(int lowerBound, int upperBound, List<string> operators, List<int> otherFactors, bool autoRefreshBag, Action bagEmpty)
         {
             LowerBound = lowerBound;
@@ -22,7 +24,43 @@ namespace LearningGame.Core
             OtherFactors = otherFactors;
 
             numberBags = operators.ToDictionary(c => c, d => new NumberBag(lowerBound, upperBound, autoRefreshBag, bagEmpty));
+
+            int opTypeIndex = rnd.Next(0, Operators.Count());
+            string operatorType = Operators[opTypeIndex];
+            switch (operatorType)
+            {
+                case "Spell":
+                    {
+                        QandAs = TextFileToDictionary("Spelling.txt");
+                        numberBags = operators.ToDictionary(c => c, d => new NumberBag(0, QandAs.Count-1, autoRefreshBag, bagEmpty));
+
+                        break;
+                    }
+            }
+        
         }
+
+
+        private Dictionary<string, string> TextFileToDictionary(string fileName)
+        {
+            Dictionary<string, string> d = new Dictionary<string, string>();
+
+            using (var sr = new StreamReader(fileName))
+            {
+                string line = null;
+
+                // while it reads a key
+                while ((line = sr.ReadLine()) != null)
+                {
+                    // add the key and whatever it 
+                    // can read next as the value
+                    d.Add(line, sr.ReadLine());
+                }
+            }
+
+            return d;
+        }
+
         public Problem GenerateProblem()
         {
 
@@ -118,6 +156,16 @@ namespace LearningGame.Core
                         secondNumber = answer / factor;
                     }
                     returnProb = new DivisionProblem(answer, secondNumber);
+                    break;
+
+                case "Spell":
+
+                    int pulledIndex = operatorBag.DrawNumber();
+                    string key = QandAs.Keys.ToArray()[pulledIndex];
+                    string value = QandAs.Values.ToArray()[pulledIndex];
+
+                    returnProb = new SpellingProblem(key, value);
+                    returnProb.HideTextPrompt = true;
                     break;
                 default:
                     throw new InvalidOperationException();

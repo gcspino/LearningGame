@@ -60,9 +60,13 @@ namespace LearningGame.GUI
                 {
                     vm.AnswerCurrentProblem(answer);
                 }
+                else
+                {
+                    vm.AnswerCurrentProblem(Answer.Text);
+                }
                 Answer.Text = "";
             }
-            else if(e.Key == Key.M)
+            else if(e.Key == Key.M && vm.CurrentProblem.Operator != "Spell")
             {
                 e.Handled = true;
                 vm.UseMagic();

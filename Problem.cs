@@ -14,17 +14,26 @@ namespace LearningGame.Core
             return answer == Solution();
         }
 
+        public bool IsAnswer(string answer)
+        {
+            return answer.ToLower() == AnswerText().ToLower();
+        }
+
         public abstract string Operator { get; }
 
         public int A { get; set; }
         public int B { get; set; }
+
+        public string Prompt { get; set; }
+        public string Answer { get; set; }
+        public bool HideTextPrompt { get; set; }    
 
         public Problem()
         {
 
         }
 
-        public string AnswerText()
+        public virtual string AnswerText()
         {
             return string.Concat(A, Operator, B, "=", Solution());
         }

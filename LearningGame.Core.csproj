@@ -57,6 +57,7 @@
     <Compile Include="Problem.cs" />
     <Compile Include="ProblemGenerator.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
+    <Compile Include="SpellingProblem.cs" />
     <Compile Include="SubtractionProblem.cs" />
   </ItemGroup>
   <Import Project="$(MSBuildToolsPath)\Microsoft.CSharp.targets" />

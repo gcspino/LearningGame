@@ -16,7 +16,7 @@
             <ColumnDefinition Width="*" />
             <ColumnDefinition Width="195" />
         </Grid.ColumnDefinitions>
-        <TextBlock Grid.Row="0" Grid.Column="1" Text="{Binding ProblemTop, FallbackValue=??}" HorizontalAlignment="Center"  FontSize="72"/>
+        <TextBlock Grid.Row="0" Grid.Column="0" Grid.ColumnSpan ="3" Text="{Binding ProblemTop, FallbackValue=??}" HorizontalAlignment="Center"  FontSize="72"/>
         <TextBlock Grid.Row="2" Grid.Column="0" Grid.ColumnSpan ="3" Text="{Binding MiddleValue, FallbackValue=* /}" HorizontalAlignment="Center"  FontSize="72"/>
         <TextBlock Grid.Row="2" Grid.Column="0" Text="{Binding ProblemLeft, FallbackValue=??}" HorizontalAlignment="Center"  FontSize="72"/>
         <TextBlock Grid.Row="2" Grid.Column="2" Text="{Binding ProblemRight, FallbackValue=??}" HorizontalAlignment="Center"  FontSize="72"/>
