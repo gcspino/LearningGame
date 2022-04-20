@@ -95,7 +95,7 @@ namespace LearningGame.GUI
             }
         }
 
-        public void SetupBattlers()
+        public void SetupBattlers(string Operator)
         {
             if (game != null)
             {
@@ -109,7 +109,7 @@ namespace LearningGame.GUI
             LeftCombatantViewModel = new CombatantViewModel(playerCombatant, portraits);
             List<int> multFactors = GetMultFactors(mMultFactor);
 
-            Combatant EnemyCombatant = GetCombatant(multFactors.First(), difficultyFactor, mBossMode, playerCombatant);
+            Combatant EnemyCombatant = GetCombatant(multFactors.First(), difficultyFactor, mBossMode, playerCombatant, Operator);
             RightCombatantViewModel = new CombatantViewModel(EnemyCombatant, portraits);
 
             if (mBossMode)
@@ -144,7 +144,7 @@ namespace LearningGame.GUI
 
         }
 
-        private Combatant GetCombatant(int MultFactor, double difficultyFactor, bool bossMode, Combatant playerCombatant)
+        private Combatant GetCombatant(int MultFactor, double difficultyFactor, bool bossMode, Combatant playerCombatant, string Operator)
         {
             Combatant comb;
 
@@ -198,8 +198,12 @@ namespace LearningGame.GUI
                     case 9:
                         comb = new Combatant("Nine-Woman", 80, 0, (int)(7 * difficultyFactor), 3, "NineWoman.png");
                         break;
+                    case 12:
+                        comb = new Combatant("Twelve-Man", 80, 0, (int)(7 * difficultyFactor), 3, "TwelveMan.png");
+                        break;
                     default:
-                        comb = new Combatant(string.Concat(MultFactor, "-Guy"), 80, 0, (int)(7 * difficultyFactor), 3, "DefaultGuy.png");
+                        comb = new Combatant(string.Concat(MultFactor, "-Guy"), 80, 0, (int)(7 * difficultyFactor), 3,
+                            Operator == "Spell" ? "SpellingMan.png" : "DefaultGuy.png");
                         break;
                 }
             }

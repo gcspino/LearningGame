@@ -80,7 +80,7 @@ namespace LearningGame.GUI
 
         private void Button_Click(object sender, RoutedEventArgs e)
         {
-            vm.SetupBattlers();
+            vm.SetupBattlers(vm.Operator);
             vm.SetGameActive(true);
             Answer.Focus();
         }
