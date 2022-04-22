@@ -71,6 +71,10 @@ namespace LearningGame.GUI
                 e.Handled = true;
                 vm.UseMagic();
             }
+            else if(e.Key == Key.F1 && vm.CurrentProblem.Operator == "Spell")
+            {
+                vm.SpeakText(vm.CurrentProblem.AnswerText());
+            }
         }
 
         private void MediaElement_MediaEnded(object sender, RoutedEventArgs e)

@@ -4,6 +4,7 @@ using System.Collections.Generic;
 using System.ComponentModel;
 using System.Diagnostics;
 using System.Linq;
+using System.Speech.Synthesis;
 using System.Text;
 using System.Threading.Tasks;
 
@@ -44,6 +45,8 @@ namespace LearningGame.GUI
         public CombatantViewModel LeftCombatantViewModel { get; set; }
         public CombatantViewModel RightCombatantViewModel { get; set; }
         public TriangleFactViewModel QuestionViewModel { get; set; }
+
+        SpeechSynthesizer synth;
 
         public List<string> Operators
         {
@@ -227,7 +230,7 @@ namespace LearningGame.GUI
             
             if (gameIsActive)
             {
-                MusicVolume = 0.25;
+                MusicVolume = 0.25 * (Operator == "Spell" ? 0.25 : 1);
                 stopWatch.Start();
             }
             else
@@ -263,9 +266,23 @@ namespace LearningGame.GUI
             resources = new ResponseResources(string.Concat(AppDomain.CurrentDomain.BaseDirectory, "Images\\"), new List<string> { "correct", "wrong", "battle", "bang", "hit", "magic", "win" });
 
             BackgroundResource = resources.GetResponse("battle");
+
+
+            synth = new SpeechSynthesizer();
+            synth.SelectVoiceByHints(VoiceGender.Neutral, VoiceAge.Senior);
+            synth.SetOutputToDefaultAudioDevice();
+
         }
 
-        public void AnswerCurrentProblem(int answer)
+        public void SpeakText(string text)
+        {
+            if (VoiceMode)
+            {
+                synth.SpeakAsync(text);
+            }
+        }
+
+    	public void AnswerCurrentProblem(int answer)
         {
             if (game.Opponent.CurrentHP == 0)
             {
@@ -294,13 +311,20 @@ namespace LearningGame.GUI
                 }
                 RightCombatantViewModel.CombatantData.Attack(LeftCombatantViewModel.CombatantData);
                 LeftCombatantViewModel.Refresh();
-                resources.GetResponse("bang").PlaySound();
+
+                PlayEnemyAttackSoundEffect(true);
             }
 
             CurrentProblem = game.GetProblem();
             QuestionViewModel = new TriangleFactViewModel(CurrentProblem, VoiceMode);
 
             NotifyPropertyChanged(string.Empty);
+        }
+
+        private void PlayEnemyAttackSoundEffect(bool force = false)
+        {
+            if(force || Operator != "Spell")
+                resources.GetResponse("bang").PlaySound();
         }
 
         public void AnswerCurrentProblem(string answer)
@@ -332,7 +356,7 @@ namespace LearningGame.GUI
                 }
                 RightCombatantViewModel.CombatantData.Attack(LeftCombatantViewModel.CombatantData);
                 LeftCombatantViewModel.Refresh();
-                resources.GetResponse("bang").PlaySound();
+                PlayEnemyAttackSoundEffect();
             }
 
             CurrentProblem = game.GetProblem();
@@ -367,7 +391,7 @@ namespace LearningGame.GUI
         {
             if (RightCombatantViewModel.CombatantData.PhysicalAttack >= 1)
             {
-                resources.GetResponse("bang").PlaySound();
+                PlayEnemyAttackSoundEffect();
             }
             RightCombatantViewModel.CombatantData.Pulse?.Invoke();
         }
