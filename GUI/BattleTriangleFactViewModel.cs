@@ -356,7 +356,7 @@ namespace LearningGame.GUI
                 }
                 RightCombatantViewModel.CombatantData.Attack(LeftCombatantViewModel.CombatantData);
                 LeftCombatantViewModel.Refresh();
-                PlayEnemyAttackSoundEffect();
+                PlayEnemyAttackSoundEffect(true);
             }
 
             CurrentProblem = game.GetProblem();
