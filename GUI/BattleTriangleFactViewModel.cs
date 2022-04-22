@@ -269,7 +269,7 @@ namespace LearningGame.GUI
 
 
             synth = new SpeechSynthesizer();
-            synth.SelectVoiceByHints(VoiceGender.Neutral, VoiceAge.Senior);
+            synth.SelectVoiceByHints(VoiceGender.Female, VoiceAge.Teen);
             synth.SetOutputToDefaultAudioDevice();
 
         }
