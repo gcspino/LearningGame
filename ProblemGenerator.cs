@@ -44,7 +44,7 @@ namespace LearningGame.Core
         private Dictionary<string, string> TextFileToDictionary(string fileName)
         {
             Dictionary<string, string> d = new Dictionary<string, string>();
-
+            int count = 0;
             using (var sr = new StreamReader(fileName))
             {
                 string line = null;
@@ -54,7 +54,16 @@ namespace LearningGame.Core
                 {
                     // add the key and whatever it 
                     // can read next as the value
-                    d.Add(line, sr.ReadLine());
+                    if(d.ContainsKey(line))
+                    {
+                        d.Add(line + "_" + count, sr.ReadLine());
+                    }
+                    else
+                    {
+                        d.Add(line, sr.ReadLine());
+                    }
+                    count++;
+                    
                 }
             }
 
